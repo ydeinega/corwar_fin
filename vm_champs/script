@@ -1,0 +1,15 @@
+
+$test
+
+for ((i=1; i < 12000; i++));
+	do
+		../corewar helltrain.cor -dump $i > dump2
+		./corewar helltrain.cor -d $i > dump1
+		diff dump1 dump2 > diff_file
+		if [ -s diff_file ]
+			then
+				echo "Difference on $i"
+			else
+				echo "Norm on $i"
+		fi
+done
