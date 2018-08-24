@@ -146,8 +146,7 @@ void		verb_print_death(int proc_num, int cycles_not_live)
 	{
 		ft_printf("Process %i ", proc_num);
 		ft_printf("hasn't lived for %i cycles ", cycles_not_live);
-		if ((g_verb.ctd_change))
-			ft_printf("(CTD %i)\n", g_game.ctd);
+		ft_printf("(CTD %i)\n", g_game.ctd);
 	}
 }
 

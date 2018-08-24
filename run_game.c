@@ -18,11 +18,11 @@ void	run_game(void)
 			make_check();
 		if (g_game.visu)
 			draw_all(g_game.win);
-		if (g_game.dump && g_game.cycle == g_game.nbr_cycles)
-		{
-			dump();
-			exit(0);
-		}
+		// if (g_game.dump && g_game.cycle == g_game.nbr_cycles)
+		// {
+		// 	dump();
+		// 	exit(0);
+		// }
 		//g_game.v && g_game.number_v ? verb_mode(g_game.number_v) : 0;//comment!!!!!!!!!!!!!!!!!
 	}
 	if ((!g_game.v && !g_game.dump && !g_game.visu) ||
@@ -34,8 +34,12 @@ void	make_check(void)
 {
 	bool	nbr_live;
 
+	//ft_printf("I'm here. Let's make a check\n");
 	nbr_live = check_nbr_live();
+	//ft_printf("nbr_live = %i\n", nbr_live);
 	g_game.end = check_deaths();
+	// ft_printf("g_game.end = %i\n", g_game.end);
+	// ft_printf("g_game.checks = %i\n", g_game.checks);
 	if (nbr_live)
 	{
 		g_game.ctd -= CYCLE_DELTA;
@@ -66,7 +70,7 @@ bool	check_nbr_live(void)
 	res = 0;
 	while (i < g_game.players)
 	{
-		if (g_game.player[i].lives_in_curr == NBR_LIVE)
+		if (g_game.player[i].lives_in_curr >= NBR_LIVE)
 			res = 1;
 		g_game.player[i].lives_in_curr = 0;
 		i++;
@@ -83,10 +87,13 @@ bool	check_deaths(void)
 	num_deaths = 0;
 	while (proc)
 	{
-		if (!proc->lives_ctd)
+		if (g_game.ctd == 786 && (proc->num == 1769 || proc->num == 1762 || proc->num == 1754))
 		{
-			//ft_printf("proc_num = %i lives_ctd = %i\n", proc->num, proc->lives_ctd);
-			//ft_printf("cycles_not_live = %i ctd = %i\n", proc->cycles_not_live, g_game.ctd);
+			ft_printf("proc_num = %i lives_ctd = %i\n", proc->num, proc->lives_ctd);
+			ft_printf("cycles_not_live = %i ctd = %i\n", proc->cycles_not_live, g_game.ctd);
+		}
+		if (proc->lives_ctd == 0 && proc->live && proc->cycles_not_live >= g_game.ctd)
+		{
 			proc->live = 0;
 			num_deaths++;
 			if (g_game.v)//comment

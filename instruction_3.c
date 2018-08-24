@@ -35,7 +35,6 @@ void	exec_fork(t_process *process, unsigned int *arg, t_arg_type *arg_type)
 	// ft_printf("pc after = %d\n", pc);
 	new = new_process(NULL, process, pc);
 	add_process(&(g_game.proc), new);
-	g_game.proc_num++;
 }
 
 void	exec_lld(t_process *process, unsigned int *arg, t_arg_type *arg_type)
@@ -88,7 +87,6 @@ void	exec_lfork(t_process *process, unsigned int *arg, t_arg_type *arg_type)
 	pc = (process->pc + (short)delta) % MEM_SIZE;
 	new = new_process(NULL, process, pc);
 	add_process(&(g_game.proc), new);
-	g_game.proc_num++;
 }
 
 void	exec_aff(t_process *process, unsigned int *arg, t_arg_type *arg_type)

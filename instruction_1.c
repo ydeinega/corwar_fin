@@ -7,7 +7,7 @@ void	exec_live(t_process *process, unsigned int *arg, t_arg_type *arg_type)
 	champ_num = -(*arg);
 	if (!process && !arg_type)
 		return ;
-	if (champ_num > 0 && champ_num < g_game.players)
+	if (champ_num >= 1 && champ_num <= g_game.players)
 	{
 		g_game.player_last_live = champ_num;
 		g_game.player[champ_num - 1].lives_in_curr++;

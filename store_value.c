@@ -48,6 +48,8 @@ void			store_value(t_process *proc, unsigned int value, int delta, int base)
 	str = to_hex_str(value);
 	len = 4;
 	index = (proc->pc + (delta % base)) % MEM_SIZE;//???
+	if (index < 0)
+	 	index = (MEM_SIZE + index) % MEM_SIZE;
 	if (g_game.visu && g_game.change)
 		add_to_change(new_change(proc->player, str, len, index));
 	else if (g_game.visu)

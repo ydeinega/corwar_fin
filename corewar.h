@@ -40,6 +40,7 @@ typedef struct			s_process
 	int					lives_ctd;
 	int					pc;
 	int					prev;//ADD//если размножение каретки, что делать???
+	int					pc_change;//ADD//если размножение каретки, что делать???
 	int					cycles_not_live;
 	int					opcode;
 	int					cycles_to_exec;
@@ -162,7 +163,8 @@ bool					check_deaths(void);
 bool					check_nbr_live(void);
 void					run_processes(void);
 void					exec_instruct(t_process *proc);//
-void					read_next_instruct(t_process *proc, int move, int base);
+void					read_next_instruct(t_process *proc);
+// void					read_next_instruct(t_process *proc, int move, int base);
 void					exec_live(t_process *process, unsigned int *arg, t_arg_type *arg_type);
 void					exec_ld(t_process *process, unsigned int *arg, t_arg_type *arg_type);
 void					exec_st(t_process *process, unsigned int *arg, t_arg_type *arg_type);
