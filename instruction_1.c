@@ -13,6 +13,8 @@ void	exec_live(t_process *process, unsigned int *arg, t_arg_type *arg_type)
 		g_game.player[champ_num - 1].lives_in_curr++;
 		g_game.player[champ_num - 1].last_live = g_game.cycle;
 	}
+	process->cycles_not_live = 0;
+	process->lives_ctd++;
 	//Subject! Check!
 }
 

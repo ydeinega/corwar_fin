@@ -18,11 +18,11 @@ void	run_game(void)
 			make_check();
 		if (g_game.visu)
 			draw_all(g_game.win);
-		// if (g_game.dump && g_game.cycle == g_game.nbr_cycles)
-		// {
-		// 	dump();
-		// 	exit(0);
-		// }
+		if (g_game.dump && g_game.cycle == g_game.nbr_cycles)
+		{
+			dump();
+			exit(0);
+		}
 		//g_game.v && g_game.number_v ? verb_mode(g_game.number_v) : 0;//comment!!!!!!!!!!!!!!!!!
 	}
 	if ((!g_game.v && !g_game.dump && !g_game.visu) ||
@@ -87,11 +87,11 @@ bool	check_deaths(void)
 	num_deaths = 0;
 	while (proc)
 	{
-		if (g_game.ctd == 786 && (proc->num == 1769 || proc->num == 1762 || proc->num == 1754))
-		{
-			ft_printf("proc_num = %i lives_ctd = %i\n", proc->num, proc->lives_ctd);
-			ft_printf("cycles_not_live = %i ctd = %i\n", proc->cycles_not_live, g_game.ctd);
-		}
+		// if (g_game.ctd == 786 && (proc->num == 1769 || proc->num == 1762 || proc->num == 1754))
+		// {
+		// 	ft_printf("proc_num = %i lives_ctd = %i\n", proc->num, proc->lives_ctd);
+		// 	ft_printf("cycles_not_live = %i ctd = %i\n", proc->cycles_not_live, g_game.ctd);
+		// }
 		if (proc->lives_ctd == 0 && proc->live && proc->cycles_not_live >= g_game.ctd)
 		{
 			proc->live = 0;

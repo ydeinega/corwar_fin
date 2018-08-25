@@ -49,6 +49,7 @@ void	read_next_instruct(t_process *proc)
 		proc->opcode = 0;
 }
 
+
 void	run_processes(void)
 {
 	t_process	*tmp;
@@ -58,28 +59,15 @@ void	run_processes(void)
 	{
 		if (tmp->live)
 		{
+			tmp->cycles_not_live++;
 			if (tmp->opcode >= 1 && tmp->opcode <= 16)
 			{
 				tmp->cycles_to_exec--;
 				if (tmp->cycles_to_exec == 0)
-				{
-					if (tmp->opcode == 1)
-					{
-						tmp->lives_ctd++;
-						tmp->cycles_not_live = 0;
-					}
-					else
-						tmp->cycles_not_live++;
 					exec_instruct(tmp);
-				}
-				else
-					tmp->cycles_not_live++;
 			}
 			else
-			{
-				tmp->cycles_not_live++;
 				read_next_pc(tmp, 1, MEM_SIZE);
-			}
 		}
 		tmp = tmp->next;
 	}
@@ -94,6 +82,47 @@ void	run_processes(void)
 		tmp = tmp->next;
 	}
 }
+
+// void	run_processes(void)
+// {
+// 	t_process	*tmp;
+
+// 	tmp = g_game.proc;
+// 	while (tmp)
+// 	{
+// 		if (tmp->live)
+// 		{
+// 			if (tmp->opcode >= 1 && tmp->opcode <= 16)
+// 			{
+// 				tmp->cycles_to_exec--;
+// 				if (tmp->cycles_to_exec == 0 && tmp->opcode == 1)
+// 				{
+// 					tmp->lives_ctd++;
+// 					tmp->cycles_not_live = 0;
+// 				}
+// 				else
+// 					tmp->cycles_not_live++;
+// 				tmp->cycles_to_exec == 0 ? exec_instruct(tmp) : 0;
+// 			}
+// 			else
+// 			{
+// 				tmp->cycles_not_live++;
+// 				read_next_pc(tmp, 1, MEM_SIZE);
+// 			}
+// 		}
+// 		tmp = tmp->next;
+// 	}
+// 	tmp = g_game.proc;
+// 	while (tmp)
+// 	{
+// 		if (tmp->live && tmp->pc_change)
+// 		{
+// 			tmp->pc_change = 0;
+// 			read_next_instruct(tmp);
+// 		}
+// 		tmp = tmp->next;
+// 	}
+// }
 
 // void	run_processes(void)
 // {
@@ -166,8 +195,8 @@ void	exec_instruct(t_process *proc)
 	// 	proc->lives_ctd++;
 	// 	proc->cycles_not_live = 0;
 	// }
-	else
-		proc->cycles_not_live++;
+	// else
+	// 	proc->cycles_not_live++;
 	move = get_move(proc, arg_type, arg);
 	read_next_pc(proc, move, base);
 	arg_type ? free(arg_type) : 0;

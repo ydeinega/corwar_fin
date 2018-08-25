@@ -35,7 +35,10 @@ t_process	*new_process(t_player *player, t_process *proc, int pc)
 	new->pc = pc;
 	new->pc_change = proc ? 1 : 0;
 	new->prev = -1;//или 0
-	new->cycles_not_live = 0;
+	if (proc)
+		new->cycles_not_live = proc->opcode == 12 ? 800 : 1000;
+	else
+		new->cycles_not_live = 0;
 	new->opcode = proc ? 0 : conv_hex(&g_game.board[pc], 1);
 	new->cycles_to_exec = op_tab[new->opcode - 1].cycles_to_exec;
 	new->next = NULL;
