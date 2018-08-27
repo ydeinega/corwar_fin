@@ -1,7 +1,7 @@
 
 $test
 
-for ((i=20044; i < 27435; i++));
+for ((i=25300; i < 27435; i++));
 	do
 		../corewar helltrain.cor -dump $i > dump2
 		./corewar helltrain.cor -d $i > dump1

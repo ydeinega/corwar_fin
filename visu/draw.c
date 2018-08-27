@@ -47,7 +47,7 @@ static void			write_value(int pl, unsigned char val, int pos, WINDOW *win)
 
 	y = pos / 64 + 1;
 	x = (pos % 64) * 3 + 1;
-	wattron(win, COLOR_PAIR(pl + 1));
+	wattron(win, COLOR_PAIR(pl));
 	mvwprintw(win, y, x, (buff = ft_itoa_base_mod(val, 16, 2)));
 	wattroff(win, A_REVERSE | A_BLINK);
 	pos % 64 == 63 ? wprintw(win, "\n ") : wprintw(win, " ");
@@ -65,15 +65,17 @@ static void			draw_procs(WINDOW *win)
 	map = g_game.board;
 	while (curr)
 	{
-		if (curr->prev >= 0)
-		{
+		if (curr->live) {
+			if (curr->prev >= 0)
+			{
+				wattroff(win, A_REVERSE | A_BLINK);
+				write_value(curr->player, map[curr->prev], curr->prev, win);
+			}
+			wattron(win, A_REVERSE | A_BLINK);
+			write_value(curr->player, map[curr->pc], curr->pc, win);
 			wattroff(win, A_REVERSE | A_BLINK);
-			write_value(curr->player, map[curr->prev], curr->prev, win);
+			curr = curr->next;
 		}
-		wattron(win, A_REVERSE | A_BLINK);
-		write_value(curr->player, map[curr->pc], curr->pc, win);
-		wattroff(win, A_REVERSE | A_BLINK);
-		curr = curr->next;
 	}
 }
 
@@ -96,6 +98,8 @@ void				draw_map(WINDOW *win)
 		i % 64 == 63 && i > 0 ? wprintw(win, "\n ") : wprintw(win, " ");
 	}
 	ft_strdel(&buff);
+	box(win, 0, 0);
+	wrefresh(win);
 }
 
 static void				draw_changes(WINDOW *win)
@@ -104,28 +108,39 @@ static void				draw_changes(WINDOW *win)
 	t_change		*prev;
 	unsigned char	*map;
 	int				i;
+	// int				j;
+	// int				fd = open("testlog.txt", O_RDWR | O_APPEND);
 
 	map = g_game.board;
-	i = -1;
+	// i = 0;
 	if (g_game.change == NULL || !(curr = g_game.change))
 		return ;
 	while ((prev = curr))
 	{
+		i = -1;
+		// while (++j < 4) {
+		// 	ft_putstr_fd(ft_itoa_base_mod(curr->value[j], 16, 2), fd);
+		// 	ft_putstr_fd(" ", fd);
+		// }
+		// ft_putstr_fd("\n", fd);
 		while (++i < curr->len)
 		{
 			write_value(curr->player, curr->value[i], curr->pos, win);
-			curr->pos = (curr->pos + i) % MEM_SIZE;
+			curr->pos = (curr->pos + 1) % MEM_SIZE;
 		}
 		curr = curr->next;
 		free(prev->value);
 		free(prev);
-		i = -1;
 	}
 	g_game.change = NULL;
+	// close(fd);
 }
 
 void				draw_all(WINDOW *win)
 {
-	draw_changes(win);
+	// if (0 != 0)
+		draw_changes(win);
 	draw_procs(win);
+	box(win, 0, 0);
+	wrefresh(win);
 }

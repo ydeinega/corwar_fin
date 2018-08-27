@@ -33,6 +33,8 @@ static void	read_next_pc(t_process *proc, int move, int base)
 	if (g_game.v && proc->opcode >= 1 &&
 		proc->opcode <= 16 && proc->opcode != 9)//comment
 		verb_print_pc(proc->prev, proc->pc, move, g_game.board);
+	if (g_game.cycle == 25345 && move == 2)//del
+		ft_printf("proc_num = %d opcode = %d\n", proc->num, proc->opcode);
 }
 
 void	read_next_instruct(t_process *proc)
@@ -59,6 +61,11 @@ void	run_processes(void)
 	{
 		if (tmp->live)
 		{
+			// if (g_game.cycle == 25340 && tmp->num == 263)
+			// {
+			// 	dump();
+			// 	exit(0);
+			// }
 			tmp->cycles_not_live++;
 			if (tmp->opcode >= 1 && tmp->opcode <= 16)
 			{
@@ -190,13 +197,6 @@ void	exec_instruct(t_process *proc)
 			g_command[proc->opcode - 1](proc, arg, arg_type);
 		}
 	}
-	// if (proc->opcode == 1)
-	// {
-	// 	proc->lives_ctd++;
-	// 	proc->cycles_not_live = 0;
-	// }
-	// else
-	// 	proc->cycles_not_live++;
 	move = get_move(proc, arg_type, arg);
 	read_next_pc(proc, move, base);
 	arg_type ? free(arg_type) : 0;
