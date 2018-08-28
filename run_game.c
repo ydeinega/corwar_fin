@@ -19,7 +19,7 @@ void	run_game(void)
 			make_check();
 		if (g_game.visu) {
 			draw_all(g_game.win);
-			usleep(2000);
+			usleep(8000);
 		}
 		if (g_game.dump && g_game.cycle == g_game.nbr_cycles)
 		{

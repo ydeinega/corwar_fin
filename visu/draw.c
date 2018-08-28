@@ -6,7 +6,7 @@
 /*   By: rmalyavc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/01 17:23:41 by rmalyavc          #+#    #+#             */
-/*   Updated: 2018/07/02 22:00:14 by rmalyavc         ###   ########.fr       */
+/*   Updated: 2018/08/28 20:11:12 by rmalyavc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,11 +136,22 @@ static void				draw_changes(WINDOW *win)
 	// close(fd);
 }
 
+// void				draw_info(WINDOW *win)
+// {
+// 	wattron(win, COLOR_PAIR(0));
+// 	wattroff(win, A_REVERSE | A_BLINK);
+// 	mvwprintw(win, 1, 64 * 3 + 3, "** RUNNING **\n\n");
+// 	wprintw(win, "%s\n\n\n", "Cycles/second limit : 8000");
+// 	wprintw(win, "Cycle : %d\n\n", g_game.cycle);
+
+// }
+
 void				draw_all(WINDOW *win)
 {
 	// if (0 != 0)
-		draw_changes(win);
+	draw_changes(win);
 	draw_procs(win);
+	draw_info(win);
 	box(win, 0, 0);
 	wrefresh(win);
 }

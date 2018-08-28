@@ -74,6 +74,8 @@ void			dump(void)
 void			start_game(void)
 {
 	g_game.player = create_players();
+	//del
+	ft_printf("%s\n", g_game.player[0].name);
 	g_game.board = create_board(g_game.player);
 	g_game.proc = create_process(g_game.player);
 	if (g_game.visu)

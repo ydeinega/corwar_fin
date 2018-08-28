@@ -20,5 +20,6 @@ void			draw_map(WINDOW *win);
 void			draw_all(WINDOW *win);
 WINDOW			*visual_init(void);
 char			*ft_itoa_base_mod(intmax_t nb, int base, int flag);
+void			draw_info(WINDOW *win);
 
 #endif

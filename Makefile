@@ -36,6 +36,7 @@ verb_comment_print.c
 
 VISU_SRCS = \
 draw.c \
+draw_info.c \
 visual_init.c \
 ft_itoa_base_mod.c
 
