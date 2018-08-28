@@ -53,7 +53,7 @@ void			dump(void)
 	i = 0;
 	//DEL
 	ft_printf("Introducing contestants...\n");
-	ft_printf("* Player 1, weighing 617 bytes, \"helltrain\" (\"choo-choo, motherf*****s !\") !\n");
+	ft_printf("* Player 1, weighing 490 bytes, \"fluttershy\" (\"oh, my, what a scary project\") !\n");
 	while (i < MEM_SIZE)
 	{
 		if (i % 64 == 0)//change it to 32 (in subject it is 32 bytes)

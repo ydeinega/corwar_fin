@@ -51,7 +51,9 @@ void	exec_ldi(t_process *process, unsigned int *arg, t_arg_type *arg_type)
 	int				arg_2;
 	int				dst;
 
-	dst = arg_fin(process, arg[2], arg_type[2]);
+	res = 0;
+	delta = 0;
+	dst = arg[2];
 	arg_1 = arg_fin(process, arg[0], arg_type[0]);
 	arg_2 = arg_fin(process, arg[1], arg_type[1]);
 	if (arg_type[0] == T_DIR && arg_type[1] == T_DIR)
@@ -63,5 +65,13 @@ void	exec_ldi(t_process *process, unsigned int *arg, t_arg_type *arg_type)
 	else
 		delta = arg_1 + arg_2;
 	res = extract_ind(process, delta, IDX_MOD);
+	
+	//del
+	// if (g_game.cycle == 2510)
+	// {
+	// 	ft_printf("process->pc = %d, delta = %d, reg_dst = %d\n", process->pc, delta, dst);
+	// 	ft_printf("res = %d\n", res);
+	// }
+	//del
 	process->reg[dst - 1] = res;
 }

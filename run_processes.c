@@ -30,11 +30,13 @@ static void	read_next_pc(t_process *proc, int move, int base)
 		proc->pc = (proc->pc + move) % base;
 	if (proc->pc < 0)//if INDEX is < 0
 		proc->pc = MEM_SIZE - proc->pc;
-	if (g_game.v && proc->opcode >= 1 &&
-		proc->opcode <= 16 && proc->opcode != 9)//comment
-		verb_print_pc(proc->prev, proc->pc, move, g_game.board);
-	if (g_game.cycle == 25345 && move == 2)//del
-		ft_printf("proc_num = %d opcode = %d\n", proc->num, proc->opcode);
+	if (g_game.v && proc->opcode >= 1 && proc->opcode <= 16)//comment
+	{
+		if (proc->opcode == 9 && !proc->carry)
+			verb_print_pc(proc->prev, proc->pc, move, g_game.board);
+		if (proc->opcode != 9)
+			verb_print_pc(proc->prev, proc->pc, move, g_game.board);
+	}
 }
 
 void	read_next_instruct(t_process *proc)
@@ -61,11 +63,6 @@ void	run_processes(void)
 	{
 		if (tmp->live)
 		{
-			// if (g_game.cycle == 25340 && tmp->num == 263)
-			// {
-			// 	dump();
-			// 	exit(0);
-			// }
 			tmp->cycles_not_live++;
 			if (tmp->opcode >= 1 && tmp->opcode <= 16)
 			{

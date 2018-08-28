@@ -43,28 +43,66 @@ void		verb_print_cycles(int cycle)
 	// 	ft_printf("Cycle to die is now %i\n", g_verb.ctd);
 }
 
-static void		verb_prt_op_comm_sti(t_process *proc, unsigned int *arg)	
+static void		verb_prt_op_comm_sti(t_process *proc, unsigned int *arg, t_arg_type *arg_type)//проработать ШОРТ
 {
 	       // | -> store to 391 + 1 = 392 (with pc and mod 392)
-	unsigned int		delta;
-	unsigned int		new_pc;
+	int		delta;
+	int		new_pc;
+	int		i;
 
-	ft_printf("\n");
-	delta = arg[1] + arg[2];
-	new_pc = proc->pc + delta;
-	ft_printf("%8| -> store to %i + %i = %i (with pc and mod %i)", arg[1], arg[2], delta, new_pc);
+	i = 0;
+	delta = 0;
+	ft_printf("\n%8| -> store to ");
+	while (++i < 3)
+	{
+		if (arg_type[i] == T_REG)
+		{
+			ft_printf("%i", (int)(arg_fin(proc, arg[i], arg_type[i])));
+			delta += arg_fin(proc, arg[i], arg_type[i]);
+		}
+		else
+		{
+			ft_printf("%hi", (short)arg[i]);
+			delta += (short)arg[i];
+		}
+		if (i == 1)
+			ft_printf(" + ");
+	}
+	new_pc = (proc->pc + delta) % MEM_SIZE;
+	// if (new_pc < 0)
+	// 	new_pc = MEM_SIZE - new_pc;
+	ft_printf(" = %i (with pc and mod %i)", delta, new_pc);
 }
 
-static void		verb_prt_op_comm_ldi(t_process *proc, unsigned int *arg)	
+static void		verb_prt_op_comm_ldi(t_process *proc, unsigned int *arg, t_arg_type *arg_type)
 {
 	       // -> load from -38 + 0 = -38 (with pc and mod 395)
-	unsigned int		delta;
-	unsigned int		new_pc;
+	int		delta;
+	int		new_pc;
+	int		i;
 
-	ft_printf("\n");
-	delta = arg[1] + arg[2];
-	new_pc = proc->pc + delta;
-	ft_printf("%8| -> load from %i + %i = %i (with pc and mod %i)", arg[1], arg[2], delta, new_pc);
+	i = -1;
+	delta = 0;
+	ft_printf("\n%8| -> load from ");
+	while (++i < 2)
+	{
+		if (arg_type[i] == T_REG)
+		{
+			ft_printf("%i", (int)(arg_fin(proc, arg[i], arg_type[i])));
+			delta += arg_fin(proc, arg[i], arg_type[i]);
+		}
+		else
+		{
+			ft_printf("%hi", (short)arg[i]);
+			delta += (short)arg[i];
+		}
+		if (i == 0)
+			ft_printf(" + ");
+	}
+	new_pc = (proc->pc + delta) % MEM_SIZE;
+	// if (new_pc < 0)
+	// 	new_pc = MEM_SIZE + new_pc;
+	ft_printf(" = %i (with pc and mod %i)", delta, new_pc);
 }
 
 void				verb_prt_op_arg(t_process *proc, t_arg_type *arg_type, unsigned int *arg)
@@ -106,9 +144,9 @@ void				verb_prt_op_arg(t_process *proc, t_arg_type *arg_type, unsigned int *arg
 	// ft_printf("%i", new_pc); // del
 
 	if (proc->opcode == 11)
-		verb_prt_op_comm_sti(proc, arg);
+		verb_prt_op_comm_sti(proc, arg, arg_type);
 	if (proc->opcode == 10)
-		verb_prt_op_comm_ldi(proc, arg);
+		verb_prt_op_comm_ldi(proc, arg, arg_type);
 }
 
 void		verb_print_op(t_process *proc, t_arg_type *arg_type, unsigned int *arg)

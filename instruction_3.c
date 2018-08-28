@@ -7,6 +7,10 @@ void	exec_sti(t_process *process, unsigned int *arg, t_arg_type *arg_type)
 	int				arg_2;
 	int				arg_3;
 
+	//del
+	// if (process->num == 4 && g_game.cycle == 2535)
+	// 	ft_printf("reg[4] = %u\n", process->reg[3]);
+	//del
 	value = arg_fin(process, arg[0], arg_type[0]);
 	arg_2 = arg_fin(process, arg[1], arg_type[1]);
 	arg_3 = arg_fin(process, arg[2], arg_type[2]);
@@ -57,7 +61,7 @@ void	exec_lldi(t_process *process, unsigned int *arg, t_arg_type *arg_type)
 	int				arg_1;
 	int				arg_2;
 
-	dst = arg_fin(process, arg[2], arg_type[2]);
+	dst = arg[2];
 	arg_1 = arg_fin(process, arg[0], arg_type[0]);
 	arg_2 = arg_fin(process, arg[1], arg_type[1]);
 	if (arg_type[0] == T_DIR && arg_type[1] == T_DIR)

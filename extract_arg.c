@@ -79,8 +79,28 @@ unsigned int			extract_ind(t_process *process, int delta, int base)//BASE???
 		else
 			pc_new = (process->pc + delta) % MEM_SIZE;
 	}
-	line = extract_line(process->pc, 4);
+	if (pc_new < 0)
+		pc_new = MEM_SIZE + pc_new;
+
+	line = extract_line(pc_new, 4);
+	//line = extract_line(process->pc, 4);
 	res = conv_hex(line, 4);
+
+	//del
+	// int i;
+	// i = 0;
+	// if (g_game.cycle == 2510)
+	// {
+	// 	ft_printf("pc_new = %d\n", pc_new);
+	// 	while (i < 4)
+	// 	{
+	// 		ft_printf("%02x ", line[i]);
+	// 		i++;
+	// 	}
+	// 	ft_printf("\nres = %d\n", res);
+	// }
+	//del
+
 	free(line);
 	return (res);
 }
