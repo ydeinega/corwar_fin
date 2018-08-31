@@ -36,13 +36,17 @@ void	run_game(void)
 void	make_check(void)
 {
 	bool	nbr_live;
-
-	//ft_printf("I'm here. Let's make a check\n");
+	
 	nbr_live = check_nbr_live();
-	//ft_printf("nbr_live = %i\n", nbr_live);
+	//del
+	// ft_printf("I'm here. Let's make a check\n");
+	// ft_printf("nbr_live = %i\n", nbr_live);
+	//del
 	g_game.end = check_deaths();
+	//del
 	// ft_printf("g_game.end = %i\n", g_game.end);
 	// ft_printf("g_game.checks = %i\n", g_game.checks);
+	//del
 	if (nbr_live)
 	{
 		g_game.ctd -= CYCLE_DELTA;
@@ -73,9 +77,13 @@ bool	check_nbr_live(void)
 	res = 0;
 	while (i < g_game.players)
 	{
-		if (g_game.player[i].lives_in_curr >= NBR_LIVE)
+		if (g_game.player[i].lives_in_curr_all >= NBR_LIVE)
 			res = 1;
+		//del
+		// ft_printf("player %i lives_in_curr = %i\n", i + 1, g_game.player[i].lives_in_curr);
+		//del
 		g_game.player[i].lives_in_curr = 0;
+		g_game.player[i].lives_in_curr_all = 0;
 		i++;
 	}
 	return (res);

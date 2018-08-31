@@ -23,6 +23,7 @@ t_player		*create_players(void)
 		player[i].start = (MEM_SIZE / g_game.players) * i;
 		player[i].last_live = 0;
 		player[i].lives_in_curr = 0;
+		player[i].lives_in_curr_all = 0;
 		g_game.champ = g_game.champ->next;
 		free(tmp);
 	}

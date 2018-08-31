@@ -58,6 +58,7 @@ typedef	struct			s_player
 	unsigned int		len;
 	int					last_live;
 	int					lives_in_curr;
+	int					lives_in_curr_all;
 }						t_player;
 
 typedef struct			s_lst_champs
