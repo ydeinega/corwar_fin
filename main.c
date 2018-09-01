@@ -17,6 +17,7 @@ void	initialize_game(void)
 {
 	g_game.players = 0;
 	g_game.proc_num = 0;
+	g_game.death_num = 0;
 	g_game.cycle = 0;
 	g_game.ctd = CYCLE_TO_DIE;
 	g_game.ctd_cur = 0;

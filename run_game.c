@@ -92,28 +92,31 @@ bool	check_nbr_live(void)
 bool	check_deaths(void)
 {
 	t_process	*proc;
-	int			num_deaths;
 
 	proc = g_game.proc;
-	num_deaths = 0;
 	while (proc)
 	{
+		//del
 		// if (g_game.ctd == 786 && (proc->num == 1769 || proc->num == 1762 || proc->num == 1754))
+		// if (g_game.cycle == 4558 && proc->num == 7)
+		// if (g_game.cycle == 7530 && (proc->num == 263 || proc->num == 261 || proc->num == 260
+		// 	|| proc->num == 259 || proc->num == 258 || proc->num == 256 || proc->num == 252))
 		// {
 		// 	ft_printf("proc_num = %i lives_ctd = %i\n", proc->num, proc->lives_ctd);
 		// 	ft_printf("cycles_not_live = %i ctd = %i\n", proc->cycles_not_live, g_game.ctd);
 		// }
+		//del
 		if (proc->lives_ctd == 0 && proc->live && proc->cycles_not_live >= g_game.ctd)
 		{
 			proc->live = 0;
-			num_deaths++;
+			g_game.death_num++;
 			if (g_game.v)//comment
 				verb_print_death(proc->num, proc->cycles_not_live);
 		}
 		proc->lives_ctd = 0;
 		proc = proc->next;
 	}
-	return (num_deaths == g_game.proc_num ? 1 : 0);
+	return (g_game.death_num == g_game.proc_num ? 1 : 0);
 }
 
 // void	check_lives(int *zero_live, bool *nbr_live)

@@ -80,6 +80,7 @@ typedef	struct			s_parse
 {
 	int					players;
 	int					proc_num;
+	int					death_num;
 	int					cycle;
 	int					ctd;
 	int					ctd_cur;

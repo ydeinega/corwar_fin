@@ -68,7 +68,7 @@ static void		verb_prt_op_comm_sti(t_process *proc, unsigned int *arg, t_arg_type
 		if (i == 1)
 			ft_printf(" + ");
 	}
-	new_pc = (proc->pc + delta) % MEM_SIZE;
+	new_pc = (proc->pc + (delta % IDX_MOD)) % MEM_SIZE;
 	// if (new_pc < 0)
 	// 	new_pc = MEM_SIZE - new_pc;
 	ft_printf(" = %i (with pc and mod %i)", delta, new_pc);
@@ -123,7 +123,12 @@ void				verb_prt_op_arg(t_process *proc, t_arg_type *arg_type, unsigned int *arg
 				ft_printf("%i", arg[i]);
 			}
 			else
-				ft_printf("%i", (int)(arg_fin(proc, arg[i], arg_type[i]))); // fix arg_fin becouse of it return unsign. int
+			{
+				if (proc->opcode == 3)//maybe also other opcodes behave like this????
+					ft_printf("%i", arg[i]);
+				else
+					ft_printf("%i", (int)(arg_fin(proc, arg[i], arg_type[i]))); // fix arg_fin becouse of it return unsign. int
+			}
 		}
 		else
 		{
@@ -187,9 +192,9 @@ void		verb_print_op(t_process *proc, t_arg_type *arg_type, unsigned int *arg)
 		else if (op.opcode == 9 && proc->carry == 0)
 			ft_printf(" FAILED");
 		if (op.opcode == 12)
-			ft_printf(" (%d)", (((short)arg_fin(proc, arg[0], arg_type[0]) % IDX_MOD) + proc->pc) % MEM_SIZE);
+			ft_printf(" (%d)", ((short)arg_fin(proc, arg[0], arg_type[0]) % IDX_MOD) + proc->pc);//убрала деление на мемсайз
 		if (op.opcode == 15)
-			ft_printf(" (%d)", ((short)arg_fin(proc, arg[0], arg_type[0]) + proc->pc) % MEM_SIZE);
+			ft_printf(" (%d)", ((short)arg_fin(proc, arg[0], arg_type[0]) + proc->pc));//убрала деление на мемсайз  
 		ft_printf("\n");
 	}
 	if ((1 & g_game.number_v) > 0 && proc->opcode == 1)
