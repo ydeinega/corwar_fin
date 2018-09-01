@@ -36,6 +36,8 @@ void	exec_fork(t_process *process, unsigned int *arg, t_arg_type *arg_type)
 	// ft_printf("pc before = %d\n", process->pc);
 	// ft_printf("delta = %hd\n", delta);
 	pc = (process->pc + ((short)delta % IDX_MOD)) % MEM_SIZE;//???
+	if (pc < 0)
+		pc += MEM_SIZE;
 	// ft_printf("pc after = %d\n", pc);
 	new = new_process(NULL, process, pc);
 	add_process(&(g_game.proc), new);
@@ -89,6 +91,8 @@ void	exec_lfork(t_process *process, unsigned int *arg, t_arg_type *arg_type)
 	new = NULL;
 	delta = arg_fin(process, arg[0], arg_type[0]);
 	pc = (process->pc + (short)delta) % MEM_SIZE;
+	if (pc < 0)
+		pc += MEM_SIZE;
 	new = new_process(NULL, process, pc);
 	add_process(&(g_game.proc), new);
 }
