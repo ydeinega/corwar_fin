@@ -29,7 +29,7 @@ static void	read_next_pc(t_process *proc, int move, int base)
 	else
 		proc->pc = (proc->pc + move) % base;
 	if (proc->pc < 0)//if INDEX is < 0
-		proc->pc = MEM_SIZE - proc->pc;
+		proc->pc = MEM_SIZE + proc->pc;
 	if (g_game.v && proc->opcode >= 1 && proc->opcode <= 16)//comment
 	{
 		if (proc->opcode == 9 && !proc->carry)
@@ -64,6 +64,13 @@ void	run_processes(void)
 		if (tmp->live)
 		{
 			tmp->cycles_not_live++;
+			//test
+			if (tmp->live && tmp->pc_change)
+			{
+				tmp->pc_change = 0;
+				read_next_instruct(tmp);
+			}
+			//test
 			if (tmp->opcode >= 1 && tmp->opcode <= 16)
 			{
 				tmp->cycles_to_exec--;
@@ -75,16 +82,16 @@ void	run_processes(void)
 		}
 		tmp = tmp->next;
 	}
-	tmp = g_game.proc;
-	while (tmp)
-	{
-		if (tmp->live && tmp->pc_change)
-		{
-			tmp->pc_change = 0;
-			read_next_instruct(tmp);
-		}
-		tmp = tmp->next;
-	}
+	// tmp = g_game.proc;
+	// while (tmp)
+	// {
+	// 	if (tmp->live && tmp->pc_change)
+	// 	{
+	// 		tmp->pc_change = 0;
+	// 		read_next_instruct(tmp);
+	// 	}
+	// 	tmp = tmp->next;
+	// }
 }
 
 // void	run_processes(void)

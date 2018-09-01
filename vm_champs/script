@@ -1,7 +1,7 @@
-for ((i=1; i < 10000; i++));
+for ((i=15999; i < 16040; i++));
 	do
-		../corewar fluttershy.cor -dump $i > dump2
-		./corewar fluttershy.cor -d $i > dump1
+		../corewar _.cor -dump $i > dump2
+		./corewar _.cor -d $i > dump1
 		diff dump1 dump2 > diff_file
 		if [ -s diff_file ]
 			then
