@@ -57,7 +57,7 @@ static void		verb_prt_op_comm_sti(t_process *proc, unsigned int *arg, t_arg_type
 	{
 		if (arg_type[i] == T_REG || arg_type[i] == T_IND)
 		{
-			ft_printf("%u", arg_fin(proc, arg[i], arg_type[i]));//кастила раньше в инт
+			ft_printf("%i", (int)arg_fin(proc, arg[i], arg_type[i]));//кастила раньше в инт
 			delta += arg_fin(proc, arg[i], arg_type[i]);
 		}
 		else if (arg_type[i] == T_DIR)
@@ -137,7 +137,7 @@ void				verb_prt_op_arg(t_process *proc, t_arg_type *arg_type, unsigned int *arg
 			if (arg_type[i] == T_IND)
 			{
 				if (proc->opcode == 2 || (proc->opcode >= 6 && proc->opcode <= 11))
-					ft_printf("%u", arg_fin(proc, arg[i], arg_type[i]));//for ld, and (or xor ldi)
+					ft_printf("%i", (int)arg_fin(proc, arg[i], arg_type[i]));//for ld, and (or xor ldi)
 				else
 					ft_printf("%hi", (short)arg[i]);
 			}
