@@ -31,6 +31,7 @@ void	initialize_game(void)
 	g_game.dump = false;
 	g_game.visu = false;
 	g_game.v = false;
+	g_game.a = false;
 	g_game.nbr_cycles = 0;
 	g_game.nbr_cycles_visu = 0;
 	g_game.number_v = 0;

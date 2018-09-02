@@ -196,7 +196,7 @@ void	exec_instruct(t_process *proc)
 		arg = extract_arg(op, proc->pc, arg_type);
 		if (arg_valid(arg_type, arg, op.arg_num))
 		{
-			if (g_game.v)//comment
+			if (g_game.v && proc->opcode != 16)//comment
 				verb_print_op(proc, arg_type, arg);
 			g_command[proc->opcode - 1](proc, arg, arg_type);
 		}

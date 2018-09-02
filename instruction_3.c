@@ -99,9 +99,10 @@ void	exec_lfork(t_process *process, unsigned int *arg, t_arg_type *arg_type)
 
 void	exec_aff(t_process *process, unsigned int *arg, t_arg_type *arg_type)
 {
-	int		res;
+	unsigned int res;
 
 	res = arg_fin(process, arg[0], arg_type[0]);
 	res = res % 256;
-	ft_printf("%c", res);//???
+	if (g_game.a)
+		ft_printf("Aff: %C\n", res);
 }

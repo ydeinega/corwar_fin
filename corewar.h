@@ -94,6 +94,7 @@ typedef	struct			s_parse
 	bool				dump;
 	bool				visu;
 	bool				v;
+	bool				a;//new
 	int					nbr_cycles;
 	int					nbr_cycles_visu;
 	int					number_v;
