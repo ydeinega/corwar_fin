@@ -55,12 +55,12 @@ static void		verb_prt_op_comm_sti(t_process *proc, unsigned int *arg, t_arg_type
 	ft_printf("\n%8| -> store to ");
 	while (++i < 3)
 	{
-		if (arg_type[i] == T_REG)
+		if (arg_type[i] == T_REG || arg_type[i] == T_IND)
 		{
-			ft_printf("%i", (int)(arg_fin(proc, arg[i], arg_type[i])));
+			ft_printf("%u", arg_fin(proc, arg[i], arg_type[i]));//кастила раньше в инт
 			delta += arg_fin(proc, arg[i], arg_type[i]);
 		}
-		else
+		else if (arg_type[i] == T_DIR)
 		{
 			ft_printf("%hi", (short)arg[i]);
 			delta += (short)arg[i];
@@ -68,7 +68,8 @@ static void		verb_prt_op_comm_sti(t_process *proc, unsigned int *arg, t_arg_type
 		if (i == 1)
 			ft_printf(" + ");
 	}
-	new_pc = (proc->pc + (delta % IDX_MOD)) % MEM_SIZE;
+	new_pc = proc->pc + (delta % IDX_MOD);
+	// new_pc = (proc->pc + (delta % IDX_MOD)) % MEM_SIZE;
 	// if (new_pc < 0)
 	// 	new_pc = MEM_SIZE - new_pc;
 	ft_printf(" = %i (with pc and mod %i)", delta, new_pc);
@@ -99,7 +100,8 @@ static void		verb_prt_op_comm_ldi(t_process *proc, unsigned int *arg, t_arg_type
 		if (i == 0)
 			ft_printf(" + ");
 	}
-	new_pc = (proc->pc + delta) % MEM_SIZE;
+	new_pc = proc->pc + delta;
+	// new_pc = (proc->pc + delta) % MEM_SIZE;
 	// if (new_pc < 0)
 	// 	new_pc = MEM_SIZE + new_pc;
 	ft_printf(" = %i (with pc and mod %i)", delta, new_pc);
@@ -134,8 +136,7 @@ void				verb_prt_op_arg(t_process *proc, t_arg_type *arg_type, unsigned int *arg
 		{
 			if (arg_type[i] == T_IND)
 			{
-				if (proc->opcode == 2 || (proc->opcode >= 6 && proc->opcode <= 8) ||
-					proc->opcode == 10)
+				if (proc->opcode == 2 || (proc->opcode >= 6 && proc->opcode <= 11))
 					ft_printf("%u", arg_fin(proc, arg[i], arg_type[i]));//for ld, and (or xor ldi)
 				else
 					ft_printf("%hi", (short)arg[i]);
