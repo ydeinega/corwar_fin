@@ -217,16 +217,25 @@ void		verb_print_death(int proc_num, int cycles_not_live)
 	}
 }
 
-void		verb_print_pc(int pc_prev, int pc_new, int move, unsigned char *board)
+void		verb_print_pc(int pc_prev, int pc_new, int move, unsigned char *board)//don't need pc_new here
 {
 	int 	i;
+	int		new;
 
 	i = -1;
+	new = pc_new;
+	new = pc_prev + move;
 	if ((16 & g_game.number_v) > 0)
 	{
 		ft_printf("ADV %i ", move);
 		pc_prev == 0 ? ft_printf("(0x0000 -> "): ft_printf("(%#.4x -> ", pc_prev);
-		pc_new == 0 ? ft_printf("0x0000) ") : ft_printf("%#.4x) ", pc_new);
+		if (new == 0)
+			ft_printf("0x0000) ");
+		else if (new < 0)
+			ft_printf("%#.4x) ", MEM_SIZE + new);
+		else
+			ft_printf("%#.4x) ", new);
+		//pc_new == 0 ? ft_printf("0x0000) ") : ft_printf("%#.4x) ", pc_new);
 		while (++i < move)
 			ft_printf("%.2x ", board[(pc_prev + i) % MEM_SIZE]);
 		ft_printf("\n");
