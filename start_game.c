@@ -54,7 +54,7 @@ void			dump(void)
 	i = 0;
 	//DEL
 	ft_printf("Introducing contestants...\n");
-	ft_printf("* Player 1, weighing 490 bytes, \"fluttershy\" (\"oh, my, what a scary project\") !\n");
+	ft_printf("* Player 1, weighing 45 bytes, \"salamahenagalabadoun\" (\"sussKBO hin hin\") !\n");
 	while (i < MEM_SIZE)
 	{
 		if (i % 64 == 0)//change it to 32 (in subject it is 32 bytes)
@@ -76,7 +76,7 @@ void			start_game(void)
 {
 	g_game.player = create_players();
 	//del
-	ft_printf("%s\n", g_game.player[0].name);
+	//ft_printf("%s\n", g_game.player[0].name);
 	g_game.board = create_board(g_game.player);
 	g_game.proc = create_process(g_game.player);
 	if (g_game.visu)

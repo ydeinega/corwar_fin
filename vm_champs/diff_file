@@ -1,10 +1,4 @@
-0a1,5
-> Underscore
-> move = 5
-> proc_num = 8
-> move = 8
-> proc_num = 8
-2c7
-< * Player 1, weighing 679 bytes, "Underscore" ("__UNDERSCORE_S__") !
----
-> * Player 1, weighing 490 bytes, "fluttershy" ("oh, my, what a scary project") !
+1,3d0
+< Introducing contestants...
+< * Player 1, weighing 45 bytes, "salamahenagalabadoun" ("sussKBO hin hin") !
+< Contestant 1, "salamahenagalabadoun", has won !
