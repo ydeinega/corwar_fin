@@ -3,20 +3,19 @@
 void	run_game(void)
 {
 	//здесь нужно разрулить ситуацию с флагами
-	if (g_game.visu) {
+	if (g_game.visu)
 		draw_map(g_game.win);
-	}
-	else if (g_game.v)
+	else if (g_game.v && g_game.number_v > 0)
 		initialize_verb();//comment
 	while (g_game.end != true && g_game.ctd > 0)
 	{
+		if (g_game.ctd_cur == g_game.ctd && make_check())
+			break ;
 		g_game.cycle++;
 		if (g_game.v)
 			verb_print_cycles(g_game.cycle);
 		g_game.ctd_cur++;
 		run_processes();
-		if (g_game.ctd_cur == g_game.ctd)
-			make_check();
 		if (g_game.visu) {
 			draw_all(g_game.win);
 			usleep(8000);
@@ -28,12 +27,14 @@ void	run_game(void)
 		}
 		//g_game.v && g_game.number_v ? verb_mode(g_game.number_v) : 0;//comment!!!!!!!!!!!!!!!!!
 	}
+	if (g_game.v)
+		check_deaths();
 	// if ((!g_game.v && !g_game.dump && !g_game.visu) ||
 	// 	(g_game.v && !g_game.number_v))
 	// 	verb_mode(0);//здесь как-то назвать функцию типа принт резалт
 }
 
-void	make_check(void)
+bool	make_check(void)
 {
 	bool	nbr_live;
 	
@@ -63,29 +64,35 @@ void	make_check(void)
 		if (g_game.v)//comment
 			verb_print_ctd(g_game.ctd);
 	}
-	if (g_game.end || g_game.ctd <= 0)
-		g_game.end = true;
+	// if (g_game.end || g_game.ctd <= 0)
+	// 	g_game.end = true;
 	g_game.ctd_cur = 0;
+	return (g_game.end);
 }
 
 bool	check_nbr_live(void)
 {
 	int		i;
 	bool	res;
+	int		lives_total;
 
 	i = 0;
 	res = 0;
+	lives_total = 0;//test
 	while (i < g_game.players)
 	{
 		if (g_game.player[i].lives_in_curr_all >= NBR_LIVE)
 			res = 1;
 		//del
-		// ft_printf("player %i lives_in_curr = %i\n", i + 1, g_game.player[i].lives_in_curr);
+		//ft_printf("player %i lives_in_curr = %i\n", i + 1, g_game.player[i].lives_in_curr_all);
 		//del
+		lives_total += g_game.player[i].lives_in_curr_all;
 		g_game.player[i].lives_in_curr = 0;
 		g_game.player[i].lives_in_curr_all = 0;
 		i++;
 	}
+	if (lives_total >= NBR_LIVE)
+		res = 1;
 	return (res);
 }
 
@@ -96,17 +103,8 @@ bool	check_deaths(void)
 	proc = g_game.proc;
 	while (proc)
 	{
-		//del
-		// if (g_game.ctd == 786 && (proc->num == 1769 || proc->num == 1762 || proc->num == 1754))
-		// if (g_game.cycle == 4558 && proc->num == 7)
-		// if (g_game.cycle == 7530 && (proc->num == 263 || proc->num == 261 || proc->num == 260
-		// 	|| proc->num == 259 || proc->num == 258 || proc->num == 256 || proc->num == 252))
-		// {
-		// 	ft_printf("proc_num = %i lives_ctd = %i\n", proc->num, proc->lives_ctd);
-		// 	ft_printf("cycles_not_live = %i ctd = %i\n", proc->cycles_not_live, g_game.ctd);
-		// }
-		//del
-		if (proc->lives_ctd == 0 && proc->live && proc->cycles_not_live >= g_game.ctd)
+		if ((proc->lives_ctd == 0 && proc->live && proc->cycles_not_live >= g_game.ctd) ||
+			(g_game.ctd <= 0 && proc->live))
 		{
 			proc->live = 0;
 			g_game.death_num++;

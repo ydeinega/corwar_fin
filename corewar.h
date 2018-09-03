@@ -51,9 +51,9 @@ typedef struct			s_process
 typedef	struct			s_player
 {
 	int					num;
-	char				*name;
-	char				*comment;
-	unsigned char		*comms;
+	char				*name;//malloc
+	char				*comment;//malloc
+	unsigned char		*comms;//malloc
 	int					start;
 	unsigned int		len;
 	int					last_live;
@@ -161,7 +161,7 @@ void					add_process(t_process **head, t_process *new);
 void					regcpy(unsigned int *dst, unsigned int *src, int len);
 void					regset(unsigned int *dst, unsigned int c, int len);
 void					run_game(void);
-void					make_check(void);
+bool					make_check(void);
 bool					check_deaths(void);
 bool					check_nbr_live(void);
 void					run_processes(void);

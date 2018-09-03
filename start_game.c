@@ -16,8 +16,8 @@ t_player		*create_players(void)
 	{
 		tmp = g_game.champ;
 		player[i].num = i + 1;
-		player[i].name = tmp->name;
-		player[i].comment = tmp->comment;
+		player[i].name = ft_strdup(tmp->name);
+		player[i].comment = ft_strdup(tmp->comment);
 		player[i].comms = tmp->comms;
 		player[i].len = tmp->size;
 		player[i].start = (MEM_SIZE / g_game.players) * i;
@@ -53,8 +53,9 @@ void			dump(void)
 
 	i = 0;
 	//DEL
-	ft_printf("Introducing contestants...\n");
-	ft_printf("* Player 1, weighing 45 bytes, \"salamahenagalabadoun\" (\"sussKBO hin hin\") !\n");
+	// ft_printf("Introducing contestants...\n");
+	// ft_printf("* Player 1, weighing 45 bytes, \"salamahenagalabadoun\" (\"sussKBO hin hin\") !\n");
+	//DEL
 	while (i < MEM_SIZE)
 	{
 		if (i % 64 == 0)//change it to 32 (in subject it is 32 bytes)
@@ -72,17 +73,40 @@ void			dump(void)
 	ft_printf("\n");
 }
 
+static void		introduce(void)
+{
+	int			i;
+	t_player	*p;
+
+	i = -1;
+	p = g_game.player;
+	ft_printf("Introducing contestants...\n");
+	while (++i < g_game.players)
+	{
+		ft_printf("* Player %i, weighing %i bytes, \"%s\" (\"%s\") !\n", p[i].num, p[i].len, p[i].name, p[i].comment);
+	}
+}
+
+static void		winner(void)
+{
+//Contestant 1, "helltrain", has won !
+	int num;
+
+	num = g_game.player_last_live;
+	ft_printf("Contestant %i, \"%s\", has won !\n", num, g_game.player[num - 1].name);
+}
+
 void			start_game(void)
 {
 	g_game.player = create_players();
-	//del
-	//ft_printf("%s\n", g_game.player[0].name);
 	g_game.board = create_board(g_game.player);
 	g_game.proc = create_process(g_game.player);
 	if (g_game.visu)
 		g_game.win = visual_init();
-	//print_proc(g_game.proc);//
+	else
+		introduce();
 	run_game();
+	winner();
 	
 	//dump();
 	//free(player);

@@ -100,8 +100,8 @@ static void		verb_prt_op_comm_ldi(t_process *proc, unsigned int *arg, t_arg_type
 		if (i == 0)
 			ft_printf(" + ");
 	}
-	new_pc = proc->pc + delta;
-	// new_pc = (proc->pc + delta) % MEM_SIZE;
+	//new_pc = proc->pc + delta;
+	new_pc = proc->pc + (delta % IDX_MOD);
 	// if (new_pc < 0)
 	// 	new_pc = MEM_SIZE + new_pc;
 	ft_printf(" = %i (with pc and mod %i)", delta, new_pc);
