@@ -35,6 +35,7 @@ verb_mode.c \
 verb_comment_print.c
 
 VISU_SRCS = \
+breakdowns.c \
 draw.c \
 draw_info.c \
 visual_init.c \

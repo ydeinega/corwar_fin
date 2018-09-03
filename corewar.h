@@ -100,6 +100,7 @@ typedef	struct			s_parse
 	int					number_v;
 	WINDOW				*win;
 	t_change			*change;//ADD
+	t_change			*prev_change;
 }						t_parse;
 
 typedef	struct 			s_op

@@ -33,18 +33,12 @@ static void			player_info(WINDOW *win, int *y, int x, int nb)
 	nb++;
 	mvwprintw(win, *y, (*y += 1) * 0 + x, "Player -%d : ", nb);
 	wattron(win, COLOR_PAIR(nb));
-	wprintw(win, "%s", "helltrain");
+	wprintw(win, "%s", pl.name);
 	wattroff(win, COLOR_PAIR(nb));
 	mvwprintw(win, *y, (*y += 1) * 0 + x + 2, "Last live :                 %d", pl.last_live);
 	mvwprintw(win, *y, (*y += 2) * 0 + x + 2, "Lives in current period :   %d", pl.lives_in_curr);
 }
 
-static void			curr_breakdown(WINDOW *win, int *y, int x) {
-	mvwprintw(win, *y, (*y += 1) * 0 + x, "Live breakdown for current period :");
-	mvwprintw(win, *y, (*y += 2) * 0 + x, "[ TODO: ]");
-	mvwprintw(win, *y, (*y += 1) * 0 + x, "Live breakdown for last period :");
-	mvwprintw(win, *y, (*y += 2) * 0 + x, "[ TODO: ]");
-}
 
 void				draw_info(WINDOW *win)
 {
@@ -67,7 +61,7 @@ void				draw_info(WINDOW *win)
 	y += 2;
 	while (++i < g_game.players)
 		player_info(win, &y, x, i);
-	curr_breakdown(win, &y, x);
+	draw_breakdowns(win, &y, x);
 	mvwprintw(win, y, x, "CYCLE_TO_DIE : %d", g_game.ctd);
 	y += 2;
 	mvwprintw(win, y, x, "CYCLE_DELTA : %d", CYCLE_DELTA);
