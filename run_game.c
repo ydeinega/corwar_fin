@@ -1,5 +1,16 @@
 #include "corewar.h"
 
+// static void		print_in_file(char *str, int num)
+// {
+// 	int			fd;
+
+// 	fd = open("change", O_WRONLY | O_CREAT | O_APPEND, S_IRUSR);
+// 	ft_putstr_fd(str, fd);
+// 	ft_putnbr_fd(num, fd);
+// 	ft_putstr_fd("\n", fd);
+// 	close(fd);
+// }
+
 void	run_game(void)
 {
 	//здесь нужно разрулить ситуацию с флагами
@@ -7,19 +18,26 @@ void	run_game(void)
 		draw_map(g_game.win);
 	else if (g_game.v && g_game.number_v > 0)
 		initialize_verb();//comment
+
 	while (g_game.end != true && g_game.ctd > 0)
 	{
 		if (g_game.ctd_cur == g_game.ctd && make_check())
 			break ;
 		g_game.cycle++;
+		// if (g_game.visu && g_game.cycle > 20860)
+		// 	print_in_file("cycle = ", g_game.cycle);
 		if (g_game.v)
 			verb_print_cycles(g_game.cycle);
 		g_game.ctd_cur++;
 		run_processes();
+		// if (g_game.visu && g_game.cycle > 20860)
+		// 	print_in_file("run_processes worked in ", g_game.cycle);
 		if (g_game.visu) {
 			draw_all(g_game.win);
-			usleep(8000);
+			//usleep(8000);
 		}
+		// if (g_game.visu && g_game.cycle > 20860)
+		// 	print_in_file("draw_all worked in ", g_game.cycle);
 		if (g_game.dump && g_game.cycle == g_game.nbr_cycles)
 		{
 			dump();

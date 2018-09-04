@@ -13,6 +13,34 @@
 // 	return (n);
 // }
 
+// static void		print_in_file(t_change *new)
+// {
+// 	int			fd;
+// 	int			i;
+// 	t_change	*tmp;
+
+// 	i = -1;
+// 	tmp = new;
+// 	fd = open("change", O_WRONLY | O_CREAT | O_APPEND, S_IRUSR);
+// 	ft_putstr_fd("\n\nI'm here", fd);
+// 	while (tmp)
+// 	{
+// 		ft_putstr_fd("\nplayer ", fd);
+// 		ft_putnbr_fd(tmp->player, fd);
+// 		ft_putstr_fd("\nvalue =  ", fd);
+// 		while (++i < tmp->len)
+// 		{
+// 			ft_putnbr_fd(tmp->value[i], fd);
+// 			ft_putstr_fd(" ", fd);
+// 		}
+// 		ft_putstr_fd("\nposition =  ", fd);
+// 		ft_putnbr_fd(tmp->pos, fd);
+// 		tmp = tmp->next;
+// 		i = -1;
+// 	}
+// 	close(fd);
+// }
+
 static void		add_to_change(t_change *new)
 {
 	if (new)
@@ -54,6 +82,10 @@ void			store_value(t_process *proc, unsigned int value, int delta, int base)
 		add_to_change(new_change(proc->player, str, len, index));
 	else if (g_game.visu)
 		g_game.change = new_change(proc->player, str, len, index);
+	//del
+	// if (g_game.visu && g_game.cycle == 20863)
+	// 	print_in_file(g_game.change);
+	//del
 	while (i < len)
 	{
 		g_game.board[index] = str[i];

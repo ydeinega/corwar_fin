@@ -96,8 +96,8 @@ static void			draw_procs(WINDOW *win)
 			wattron(win, A_REVERSE | A_BLINK);
 			write_value(curr->player, map[curr->pc % MEM_SIZE], curr->pc % MEM_SIZE, win);
 			wattroff(win, A_REVERSE | A_BLINK);
-			curr = curr->next;
 		}
+		curr = curr->next;
 	}
 	close(fd);
 }
