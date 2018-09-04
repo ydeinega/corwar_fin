@@ -93,7 +93,8 @@ static void		winner(void)
 	int num;
 
 	num = g_game.player_last_live;
-	ft_printf("Contestant %i, \"%s\", has won !\n", num, g_game.player[num - 1].name);
+	if (num >= 1 && num <= g_game.players)
+		ft_printf("Contestant %i, \"%s\", has won !\n", num, g_game.player[num - 1].name);
 }
 
 void			start_game(void)

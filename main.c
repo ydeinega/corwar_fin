@@ -22,7 +22,7 @@ void	initialize_game(void)
 	g_game.ctd = CYCLE_TO_DIE;
 	g_game.ctd_cur = 0;
 	g_game.checks = 0;
-	g_game.player_last_live = 0;
+	g_game.player_last_live = 1;
 	g_game.end = 0;
 	g_game.champ = NULL;
 	g_game.player = NULL;
