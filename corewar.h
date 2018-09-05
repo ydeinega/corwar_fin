@@ -86,10 +86,10 @@ typedef	struct			s_parse
 	int					ctd_cur;
 	int					checks;
 	int					player_last_live;
-	t_lst_champs		*champ;
-	t_player			*player;
-	unsigned char		*board;
-	t_process			*proc;
+	t_lst_champs		*champ;//free
+	t_player			*player;//free
+	unsigned char		*board;//free
+	t_process			*proc;//free
 	bool				end;
 	bool				dump;
 	bool				visu;
@@ -98,9 +98,9 @@ typedef	struct			s_parse
 	int					nbr_cycles;
 	int					nbr_cycles_visu;
 	int					number_v;
-	WINDOW				*win;
-	t_change			*change;//ADD
-	t_change			*prev_change;
+	WINDOW				*win;//free???
+	t_change			*change;//free
+	t_change			*prev_change;//free
 }						t_parse;
 
 typedef	struct 			s_op
@@ -195,6 +195,7 @@ bool					arg_valid(t_arg_type *arg_type, unsigned int *arg, int arg_num);
 unsigned int			arg_fin(t_process *process, unsigned int arg, t_arg_type arg_type);
 void					store_value(t_process *proc, unsigned int value, int delta, int base);
 unsigned char			*to_hex_str(unsigned int num);
+void					clean_all(void);
 
 void					print_champ(t_lst_champs *champ);//del
 void					print_proc(t_process *proc);//del debug

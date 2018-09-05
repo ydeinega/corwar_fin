@@ -63,6 +63,7 @@ instruct_info.c \
 get_codage.c \
 extract_arg.c \
 store_value.c \
+clean_all.c \
 print_for_debug.c \
 
 VISU = $(addprefix $(VISU_PATH), $(VISU_SRCS))

@@ -30,7 +30,8 @@ static void	read_next_pc(t_process *proc, int move, int base)
 		proc->pc = (proc->pc + move) % base;
 	if (proc->pc < 0)//if INDEX is < 0
 		proc->pc = MEM_SIZE + proc->pc;
-	if (g_game.v && proc->opcode >= 1 && proc->opcode <= 16)//comment
+	if (g_game.v && !g_game.visu
+		&& proc->opcode >= 1 && proc->opcode <= 16)//comment
 	{
 		if (proc->opcode == 9 && !proc->carry)
 			verb_print_pc(proc->prev, proc->pc, move, g_game.board);
@@ -196,7 +197,7 @@ void	exec_instruct(t_process *proc)
 		arg = extract_arg(op, proc->pc, arg_type);
 		if (arg_valid(arg_type, arg, op.arg_num))
 		{
-			if (g_game.v && proc->opcode != 16)//comment
+			if (g_game.v && !g_game.visu && proc->opcode != 16)//comment
 				verb_print_op(proc, arg_type, arg);
 			g_command[proc->opcode - 1](proc, arg, arg_type);
 		}

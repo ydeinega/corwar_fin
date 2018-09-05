@@ -7,10 +7,6 @@ void	exec_sti(t_process *process, unsigned int *arg, t_arg_type *arg_type)
 	int				arg_2;
 	int				arg_3;
 
-	//del
-	// if (process->num == 4 && g_game.cycle == 2535)
-	// 	ft_printf("reg[4] = %u\n", process->reg[3]);
-	//del
 	value = arg_fin(process, arg[0], arg_type[0]);
 	arg_2 = arg_fin(process, arg[1], arg_type[1]);
 	arg_3 = arg_fin(process, arg[2], arg_type[2]);
@@ -33,12 +29,9 @@ void	exec_fork(t_process *process, unsigned int *arg, t_arg_type *arg_type)
 
 	new = NULL;
 	delta = arg_fin(process, arg[0], arg_type[0]);
-	// ft_printf("pc before = %d\n", process->pc);
-	// ft_printf("delta = %hd\n", delta);
-	pc = (process->pc + ((short)delta % IDX_MOD)) % MEM_SIZE;//???
+	pc = (process->pc + ((short)delta % IDX_MOD)) % MEM_SIZE;
 	if (pc < 0)
 		pc += MEM_SIZE;
-	// ft_printf("pc after = %d\n", pc);
 	new = new_process(NULL, process, pc);
 	add_process(&(g_game.proc), new);
 }
@@ -103,6 +96,6 @@ void	exec_aff(t_process *process, unsigned int *arg, t_arg_type *arg_type)
 
 	res = arg_fin(process, arg[0], arg_type[0]);
 	res = res % 256;
-	if (g_game.a)
+	if (g_game.a && !g_game.visu)
 		ft_printf("Aff: %C\n", res);
 }

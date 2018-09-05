@@ -52,13 +52,9 @@ void			dump(void)
 	int				i;
 
 	i = 0;
-	//DEL
-	// ft_printf("Introducing contestants...\n");
-	// ft_printf("* Player 1, weighing 45 bytes, \"salamahenagalabadoun\" (\"sussKBO hin hin\") !\n");
-	//DEL
 	while (i < MEM_SIZE)
 	{
-		if (i % 64 == 0)//change it to 32 (in subject it is 32 bytes)
+		if (i % 64 == 0)
 		{
 			if (i != 0)
 				ft_printf("\n");
@@ -89,12 +85,14 @@ static void		introduce(void)
 
 static void		winner(void)
 {
-//Contestant 1, "helltrain", has won !
 	int num;
 
 	num = g_game.player_last_live;
 	if (num >= 1 && num <= g_game.players)
-		ft_printf("Contestant %i, \"%s\", has won !\n", num, g_game.player[num - 1].name);
+	{
+		if (!g_game.visu)
+			ft_printf("Contestant %i, \"%s\", has won !\n", num, g_game.player[num - 1].name);
+	}
 }
 
 void			start_game(void)
@@ -103,13 +101,21 @@ void			start_game(void)
 	g_game.board = create_board(g_game.player);
 	g_game.proc = create_process(g_game.player);
 	if (g_game.visu)
+	{
 		g_game.win = visual_init();
+		draw_map(g_game.win);
+	}
 	else
+	{
 		introduce();
+		if (g_game.v && g_game.number_v > 0)
+			initialize_verb();
+	}
 	run_game();
 	winner();
-	
+	clean_all();
 	//dump();
 	//free(player);
 	//free(board);
+	//free(change)
 }
