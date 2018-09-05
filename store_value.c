@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   store_value.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ydeineha <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/05 21:32:09 by ydeineha          #+#    #+#             */
+/*   Updated: 2018/09/05 21:32:12 by ydeineha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 // static int 		digits_num(unsigned int num, unsigned int base)
@@ -91,6 +103,11 @@ void			store_value(t_process *proc, unsigned int value, int delta, int base)
 		g_game.board[index] = str[i];
 		i++;
 		index = (index + 1) % MEM_SIZE;//or base???
+	}
+	if (!g_game.visu)
+	{
+		free(str);
+		str = NULL;
 	}
 }
 

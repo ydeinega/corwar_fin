@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   run_game.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ydeineha <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/05 21:31:30 by ydeineha          #+#    #+#             */
+/*   Updated: 2018/09/05 21:31:36 by ydeineha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 void	run_game(void)
@@ -11,6 +23,8 @@ void	run_game(void)
 		else if (g_game.dump && g_game.cycle == g_game.nbr_cycles)
 		{
 			dump();
+			clean_all();
+			while (1);//del
 			exit(0);
 		}
 		if (g_game.ctd_cur == g_game.ctd && make_check())

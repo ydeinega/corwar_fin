@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start_game.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ydeineha <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/05 21:31:57 by ydeineha          #+#    #+#             */
+/*   Updated: 2018/09/05 21:32:00 by ydeineha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 t_player		*create_players(void)
@@ -114,6 +126,7 @@ void			start_game(void)
 	run_game();
 	winner();
 	clean_all();
+	while (1);//del
 	//dump();
 	//free(player);
 	//free(board);

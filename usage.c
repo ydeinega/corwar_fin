@@ -152,6 +152,7 @@ void	error(int num)
 			ft_printf("%d", MAX_PLAYERS);
 		ft_printf("\n");
 	}
-	//clean_game
+	clean_all();
+	//while (1);//del
 	exit(1);
 }
