@@ -30,6 +30,18 @@ t_process	*create_process(t_player *player)
 	return (proc);
 }
 
+static void	set_register(unsigned int *dst,
+							t_player *player, t_process *proc)
+{
+	if (proc)
+		regcpy(dst, proc->reg, REG_NUMBER);
+	else
+	{
+		regset(dst, 0, REG_NUMBER);
+		dst[0] = (unsigned int)(~(player->num) + 1);
+	}
+}
+
 t_process	*new_process(t_player *player, t_process *proc, int pc)
 {
 	t_process	*new;
@@ -43,28 +55,18 @@ t_process	*new_process(t_player *player, t_process *proc, int pc)
 	new->player = player ? player->num : proc->player;
 	new->carry = player ? 0 : proc->carry;
 	new->live = 1;
-	new->lives_ctd = player ? 0: proc->lives_ctd;//!!!! check it
+	new->lives_ctd = player ? 0 : proc->lives_ctd;
 	new->pc = pc;
 	new->pc_change = proc ? 1 : 0;
-	new->prev = -1;//или 0
+	new->prev = -1;
 	new->cycles_not_live = player ? 0 : proc->cycles_not_live;
-	// if (proc)
-	// 	new->cycles_not_live = proc->opcode == 12 ? 800 : 1000;
-	// else
-	// 	new->cycles_not_live = 0;
 	new->opcode = proc ? 0 : conv_hex(&g_game.board[pc], 1);
 	if (player && (new->opcode >= 1 && new->opcode <= 16))
-		new->cycles_to_exec = op_tab[new->opcode - 1].cycles_to_exec;//???
+		new->cycles_to_exec = op_tab[new->opcode - 1].cycles_to_exec;
 	else
 		new->cycles_to_exec = 0;
 	new->next = NULL;
-	if (proc)
-		regcpy(new->reg, proc->reg, REG_NUMBER);
-	else
-	{
-		regset(new->reg, 0, REG_NUMBER);
-		new->reg[0] = (unsigned int)(~(player->num) + 1);
-	}
+	set_register(new->reg, player, proc);
 	return (new);
 }
 

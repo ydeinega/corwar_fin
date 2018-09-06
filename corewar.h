@@ -31,6 +31,13 @@ typedef struct			s_change
 	struct s_change		*next;
 }						t_change;
 
+typedef struct 			s_chlist
+{
+	t_change			*list;
+	int 				counter;
+	struct s_chlist		*next;
+}						t_chlist;
+
 typedef struct			s_process
 {
 	int					num;
@@ -100,7 +107,8 @@ typedef	struct			s_parse
 	int					number_v;
 	WINDOW				*win;//free???
 	t_change			*change;//free
-	t_change			*prev_change;//free
+	t_chlist			*chlist;
+	int 				timeout;
 }						t_parse;
 
 typedef	struct 			s_op
@@ -189,6 +197,7 @@ t_arg_type				*get_codage(t_process *process, int arg_num);
 bool					codage_valid(t_arg_type *arg_type, t_arg_type *ref, int arg_num);
 int						get_move(t_process *proc, t_arg_type *arg_type, unsigned int *arg);
 unsigned int			*extract_arg(t_op op, int pc, t_arg_type *arg_type);
+unsigned int			read_from_board(int pc, int length);
 unsigned char			*extract_line(int pc, int length);
 unsigned int			extract_ind(t_process *process, int delta, int base);
 bool					arg_valid(t_arg_type *arg_type, unsigned int *arg, int arg_num);

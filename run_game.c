@@ -12,21 +12,44 @@
 
 #include "corewar.h"
 
+void		make_pause(void)
+{
+	int    	x;
+	int    	y;
+
+	y = 2;
+	x = 64 * 3 + 7;
+	unset_colors(g_game.win);
+	mvwprintw(g_game.win, y, x, "** PAUSED ** ");
+	// box(g_game.win, 0,0);
+	wrefresh(g_game.win);
+	while (true)
+		if (getch() == 32)
+			break ;
+	mvwprintw(g_game.win, y, x, "** RUNNING **");
+	// box(g_game.win, 0,0);
+	wrefresh(g_game.win);
+}
+
 void	run_game(void)
 {
+	int		res;
+
+	g_game.timeout = 6000;
 	while (g_game.end != true && g_game.ctd > 0)
 	{
 		if (g_game.visu) {
 			draw_all(g_game.win);
-			//usleep(8000);
+			usleep(g_game.timeout);
 		}
 		else if (g_game.dump && g_game.cycle == g_game.nbr_cycles)
 		{
 			dump();
 			clean_all();
-			while (1);//del
+			// while (1);//del
 			exit(0);
 		}
+
 		if (g_game.ctd_cur == g_game.ctd && make_check())
 			break ;
 		g_game.cycle++;
@@ -34,6 +57,25 @@ void	run_game(void)
 			verb_print_cycles(g_game.cycle);
 		g_game.ctd_cur++;
 		run_processes();
+		if (g_game.visu) {
+			res = getch();
+			if (res == 27)
+				exit(0);
+			else if (res == 32 || g_game.cycle == 1) {
+				make_pause();
+			}
+			else if (res == 'e' && g_game.timeout > 99)
+				g_game.timeout -= 100;
+			else if (res == 'r' && g_game.timeout > 499)
+				g_game.timeout -= 500;
+			else if (res == 'w' && g_game.timeout < 14901)
+				g_game.timeout += 100;
+			else if (res == 'q' && g_game.timeout < 14501)
+				g_game.timeout += 500;
+			unset_colors(g_game.win);
+			// box(g_game.win, 0, 0);
+			wrefresh(g_game.win);
+		}
 	}
 	if (g_game.v && !g_game.visu)
 		check_deaths();

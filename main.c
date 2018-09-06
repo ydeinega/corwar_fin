@@ -37,7 +37,6 @@ void	initialize_game(void)
 	g_game.number_v = 0;
 	g_game.win = NULL;
 	g_game.change = NULL;
-	g_game.prev_change = NULL;
 }
 
 int		main(int argc, char **argv)

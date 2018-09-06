@@ -20,7 +20,10 @@ void			draw_map(WINDOW *win);
 void			draw_all(WINDOW *win);
 WINDOW			*visual_init(void);
 char			*ft_itoa_base_mod(intmax_t nb, int base, int flag);
-void			draw_info(WINDOW *win);
+void			draw_info(WINDOW *win, int *y);
 void			draw_breakdowns(WINDOW *win, int *y, int x);
+void 			handle_changes(void);
+void			write_value(int pl, unsigned char val, int pos, WINDOW *win);
+void			unset_colors(WINDOW *win);
 
 #endif

@@ -97,6 +97,6 @@ void		clean_all(void)
 		clean_proc_lst();
 	if (g_game.change)
 		clean_change_lst(&g_game.change);
-	if (g_game.prev_change)
-		clean_change_lst(&g_game.prev_change);
+	// if (g_game.prev_change)
+	// 	clean_change_lst(&g_game.prev_change);
 }

@@ -39,7 +39,9 @@ breakdowns.c \
 draw.c \
 draw_info.c \
 visual_init.c \
-ft_itoa_base_mod.c
+ft_itoa_base_mod.c \
+handle_changes.c \
+helpers.c
 
 VERB = $(addprefix $(VERB_PATH), $(VERB_SRCS))
 
@@ -62,6 +64,8 @@ instruction_3.c \
 instruct_info.c \
 get_codage.c \
 extract_arg.c \
+extract_ind.c \
+read_from_board.c \
 store_value.c \
 clean_all.c \
 print_for_debug.c \
@@ -75,15 +79,14 @@ VERB_OBJS = $(VERB_SRCS:.c=.o)
 VISU_OBJS = $(VISU_SRCS:.c=.o)
 
 cor:
-	@rm -rf $(NAME)
 	@make -C libft
-	@gcc $(SRCS) $(VERB) $(VISU) $(FLAGS) -I $(HEADERS) -c 
-	@gcc $(OBJS) $(VERB_OBJS) $(VISU_OBJS) $(LIB) -o $(NAME) -lncurses
+	gcc $(SRCS) $(VERB) $(VISU) $(FLAGS) -I $(HEADERS) -c 
+	gcc $(FLAGS) $(OBJS) $(VERB_OBJS) $(VISU_OBJS) $(LIB) -o $(NAME) -lncurses
 	@echo "\x1b[35mYour PROGRAM has been successfully created!\x1b[0m"
 
 clean:
 	@make -C libft clean
-	@rm -rf $(OBJS) $(VERB_OBJS) $(VISU_OBJS)
+	rm -rf $(OBJS) $(VERB_OBJS) $(VISU_OBJS)
 	@echo "\x1b[36mObject files have been deleted!\x1b[0m"
 
 fclean: clean

@@ -75,7 +75,7 @@ char		*ft_itoa_base_mod(intmax_t nb, int base, int flag)
 	int				len;
 	char			buffer[17];
 
-	ft_strcpy(buffer, "0123456789ABCDEF");
+	ft_strcpy(buffer, "0123456789abcdef");
 	if ((len = define_len(nb, base)) < flag)
 		len = flag;
 	if (!(res = ft_strnew(len)))

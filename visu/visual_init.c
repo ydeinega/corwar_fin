@@ -16,7 +16,7 @@ static WINDOW	*win_create(void)
 {
 	WINDOW		*win;
 
-	win = newwin(66, 64 * 4, 0, 0);
+	win = newwin(70, 64 * 4 + 4, 0, 0);
 	// box(win, 0, 0);
 	wrefresh(win);
 	return (win);
@@ -31,6 +31,7 @@ WINDOW			*visual_init(void)
 	nodelay(stdscr, TRUE);
 	start_color();
 	curs_set(0);
+	init_color(COLOR_WHITE, 400, 400, 400);
 	init_pair(1, COLOR_GREEN, COLOR_BLACK);
 	init_pair(2, COLOR_BLUE, COLOR_BLACK);
 	init_pair(3, COLOR_RED, COLOR_BLACK);

@@ -126,7 +126,7 @@ void			start_game(void)
 	run_game();
 	winner();
 	clean_all();
-	while (1);//del
+	//while (1);//del
 	//dump();
 	//free(player);
 	//free(board);
