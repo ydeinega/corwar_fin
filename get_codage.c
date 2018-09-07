@@ -24,9 +24,6 @@ t_arg_type	*get_codage(t_process *process, int arg_num)
 	shift = 6;
 	codage_pc = (process->pc + 1) % MEM_SIZE;
 	codage = conv_hex(&g_game.board[codage_pc], 1);
-	//del
-	//ft_printf("codage = %02x\n", codage);
-	//del
 	arg_type = ft_strnew(arg_num);
 	while (i < arg_num)
 	{
@@ -40,11 +37,10 @@ t_arg_type	*get_codage(t_process *process, int arg_num)
 		shift -= 2;
 		i++;
 	}
-	// print_codage(codage, arg_type, arg_num);//
 	return (arg_type);
 }
 
-bool	codage_valid(t_arg_type *arg_type, t_arg_type *ref, int arg_num)
+bool		codage_valid(t_arg_type *arg_type, t_arg_type *ref, int arg_num)
 {
 	int i;
 	int check;
@@ -53,45 +49,9 @@ bool	codage_valid(t_arg_type *arg_type, t_arg_type *ref, int arg_num)
 	check = 0;
 	while (i < arg_num)
 	{
-		if ((arg_type[i] & ref[i]) > 0)//это побитовое и
+		if ((arg_type[i] & ref[i]) > 0)
 			check++;
 		i++;
 	}
 	return (check == arg_num ? 1 : 0);
-}
-
-int		get_move(t_process *proc, t_arg_type *arg_type, unsigned int *arg)
-{
-	t_op op;
-	int move;
-	int i;
-	int	arg_num;
-
-	i = 0;
-	op = op_tab[proc->opcode - 1];
-	move = op.codage ? 2 : 1;
-	arg_num = op.arg_num;
-	if (proc->opcode == 9 && proc->carry)
-		return ((int)(*arg));
-	if (arg_type)
-	{
-		while (i < arg_num)
-		{
-			if (arg_type[i] == T_REG)
-				move++;
-			else if (arg_type[i] == T_DIR)
-				move += op_tab[proc->opcode - 1].label;
-			else if (arg_type[i] == T_IND)
-				move += IND_SIZE; 
-			i++;
-		}
-	}
-	//del
-	// if (proc->num == 8 && g_game.cycle > 16000)
-	// {
-	// 	ft_printf("move = %i\n", move);
-	// 	ft_printf("proc_num = %i\n", proc->num);
-	// }
-	//del
-	return (move);
 }

@@ -113,7 +113,7 @@ void				verb_prt_op_arg(t_process *proc, t_arg_type *arg_type, unsigned int *arg
 	int 			i;
 
 	i = -1;
-	op = op_tab[proc->opcode - 1];	
+	op = g_op_tab[proc->opcode - 1];	
 	while (++i < op.arg_num)
 	{
 		ft_printf(" ");
@@ -171,7 +171,7 @@ void		verb_print_op(t_process *proc, t_arg_type *arg_type, unsigned int *arg)
 	// i = -1;
 	len = count_digits(proc->num, 10);
 	width = len < 5 ? 4 : len;
-	op = op_tab[proc->opcode - 1];
+	op = g_op_tab[proc->opcode - 1];
 	if ((4 & g_game.number_v) > 0)
 	{
 		

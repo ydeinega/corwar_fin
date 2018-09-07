@@ -88,7 +88,7 @@ void	print_arg(unsigned int *argument, int opcode)
 	int arg_num;
 	int i;
 
-	op = op_tab[opcode - 1];
+	op = g_op_tab[opcode - 1];
 	arg_num = op.arg_num;
 	i = 0;
 	ft_printf("Instruction %s has %d arguments. HERE THEY ARE\n", op.op, arg_num);

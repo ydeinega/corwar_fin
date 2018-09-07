@@ -60,7 +60,7 @@ static t_list_op		*verb_create_process(t_process *proc, t_arg_type *arg_type, un
 		return (NULL);
 	new->proc_num = proc->num;
 	new->opcode = proc->opcode;
-	new->arg_num = op_tab[proc->opcode - 1].arg_num;
+	new->arg_num = g_op_tab[proc->opcode - 1].arg_num;
 	new->arg = verb_arg_arr(arg, new->arg_num);
 	new->arg_type = verb_arg_type(new->arg_num, arg_type);
 	new->carry = proc->carry;
