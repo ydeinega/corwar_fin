@@ -24,6 +24,7 @@ t_process	*create_process(t_player *player)
 	while (i < g_game.players)
 	{
 		tmp = new_process(&player[i], NULL, player[i].start);
+		tmp->col = -1;
 		add_process(&proc, tmp);
 		i++;
 	}

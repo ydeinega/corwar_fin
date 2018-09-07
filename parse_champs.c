@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-void	parse_champs(void)
+void			parse_champs(void)
 {
 	t_lst_champs	*tmp;
 
@@ -48,7 +48,7 @@ unsigned int	read_num(t_lst_champs *champ, int len)
 	return (conv_hex(line, len));
 }
 
-void	read_string(t_lst_champs *champ, char *line, int len)
+void			read_string(t_lst_champs *champ, char *line, int len)
 {
 	int		ret;
 
@@ -66,7 +66,7 @@ void	read_string(t_lst_champs *champ, char *line, int len)
 	line[len] = '\0';
 }
 
-void	read_instructions(t_lst_champs *champ)
+void			read_instructions(t_lst_champs *champ)
 {
 	int		ret;
 	char	line;
@@ -92,7 +92,7 @@ void	read_instructions(t_lst_champs *champ)
 	}
 }
 
-void	read_champs_info(t_lst_champs *champ)
+void			read_champs_info(t_lst_champs *champ)
 {
 	champ->magic = read_num(champ, 4);
 	if (champ->magic != COREWAR_EXEC_MAGIC)
@@ -101,9 +101,9 @@ void	read_champs_info(t_lst_champs *champ)
 		error(10);
 	}
 	read_string(champ, champ->name, PROG_NAME_LENGTH);
-	if (read_num(champ, 4) != 0)//обычный корвар не распознает эту ошибку
+	if (read_num(champ, 4) != 0)
 	{
-		champ->error = 15;//нужно другую ошибку здесь прописать
+		champ->error = 15;
 		error(15);
 	}
 	champ->size = read_num(champ, 4);
@@ -113,11 +113,10 @@ void	read_champs_info(t_lst_champs *champ)
 		error(14);
 	}
 	read_string(champ, champ->comment, COMMENT_LENGTH);
-	if (read_num(champ, 4) != 0)//обычный корвар не распознает эту ошибку
+	if (read_num(champ, 4) != 0)
 	{
-		champ->error = 15;//has a name/comment which is too long
+		champ->error = 15;
 		error(15);
 	}
 	read_instructions(champ);
-	//print_champ(champ);//del
 }

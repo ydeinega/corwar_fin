@@ -52,6 +52,7 @@ typedef struct			s_process
 	int					opcode;
 	int					cycles_to_exec;
 	unsigned int		reg[REG_NUMBER];
+	int 				col;
 	struct s_process	*next;
 }						t_process;
 
@@ -161,7 +162,7 @@ char					*ft_strljoin(char **s1, char **s2);
 //char					*hex_line(unsigned char *line, int length);
 //unsigned int			ft_atoi_base(char *str, long long base);
 void					start_game(void);
-t_player				*create_players(void);
+t_player				*create_player_arr(void);
 unsigned char			*create_board(t_player *player);
 void					dump(void);
 t_process				*create_process(t_player *player);
@@ -176,6 +177,7 @@ bool					check_nbr_live(void);
 void					run_processes(void);
 void					exec_instruct(t_process *proc);//
 void					read_next_instruct(t_process *proc);
+void					read_next_pc(t_process *proc, int move, int base);
 // void					read_next_instruct(t_process *proc, int move, int base);
 void					exec_live(t_process *process, unsigned int *arg, t_arg_type *arg_type);
 void					exec_ld(t_process *process, unsigned int *arg, t_arg_type *arg_type);
@@ -200,7 +202,7 @@ unsigned int			*extract_arg(t_op op, int pc, t_arg_type *arg_type);
 unsigned int			read_from_board(int pc, int length);
 unsigned char			*extract_line(int pc, int length);
 unsigned int			extract_ind(t_process *process, int delta, int base);
-bool					arg_valid(t_arg_type *arg_type, unsigned int *arg, int arg_num);
+// bool					arg_valid(t_arg_type *arg_type, unsigned int *arg, int arg_num);
 unsigned int			arg_fin(t_process *process, unsigned int arg, t_arg_type arg_type);
 void					store_value(t_process *proc, unsigned int value, int delta, int base);
 unsigned char			*to_hex_str(unsigned int num);

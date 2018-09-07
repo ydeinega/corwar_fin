@@ -34,7 +34,7 @@ void	validate_verbal(int argc, char **argv, int *i)
 		*i += 1;
 		if (validate_num(argv[*i]))
 			num = ft_atoi(argv[*i]);
-		else	
+		else
 			error(8);
 	}
 	num > 31 ? error(9) : 0;

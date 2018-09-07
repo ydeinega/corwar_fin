@@ -12,47 +12,6 @@
 
 #include "corewar.h"
 
-// static int 		digits_num(unsigned int num, unsigned int base)
-// {
-// 	int n;
-
-// 	n = 1;
-// 	while (num / base > 0)
-// 	{
-// 		n++;
-// 		num = num / base;
-// 	}
-// 	return (n);
-// }
-
-// static void		print_in_file(t_change *new)
-// {
-// 	int			fd;
-// 	int			i;
-// 	t_change	*tmp;
-
-// 	i = -1;
-// 	tmp = new;
-// 	fd = open("change", O_WRONLY | O_CREAT | O_APPEND, S_IRUSR);
-// 	ft_putstr_fd("\n\nI'm here", fd);
-// 	while (tmp)
-// 	{
-// 		ft_putstr_fd("\nplayer ", fd);
-// 		ft_putnbr_fd(tmp->player, fd);
-// 		ft_putstr_fd("\nvalue =  ", fd);
-// 		while (++i < tmp->len)
-// 		{
-// 			ft_putnbr_fd(tmp->value[i], fd);
-// 			ft_putstr_fd(" ", fd);
-// 		}
-// 		ft_putstr_fd("\nposition =  ", fd);
-// 		ft_putnbr_fd(tmp->pos, fd);
-// 		tmp = tmp->next;
-// 		i = -1;
-// 	}
-// 	close(fd);
-// }
-
 static void		add_to_change(t_change *new)
 {
 	if (new)
@@ -77,7 +36,8 @@ static t_change	*new_change(int player, unsigned char *str, int len, int index)
 	return (new);
 }
 
-void			store_value(t_process *proc, unsigned int value, int delta, int base)
+void			store_value(t_process *proc, unsigned int value,
+							int delta, int base)
 {
 	int				index;
 	unsigned char	*str;
@@ -87,35 +47,32 @@ void			store_value(t_process *proc, unsigned int value, int delta, int base)
 	i = 0;
 	str = to_hex_str(value);
 	len = 4;
-	index = (proc->pc + (delta % base)) % MEM_SIZE;//???
+	index = (proc->pc + (delta % base)) % MEM_SIZE;
 	if (index < 0)
-	 	index = (MEM_SIZE + index) % MEM_SIZE;
+		index = (MEM_SIZE + index) % MEM_SIZE;
 	if (g_game.visu && g_game.change)
 		add_to_change(new_change(proc->player, str, len, index));
 	else if (g_game.visu)
 		g_game.change = new_change(proc->player, str, len, index);
-	//del
-	// if (g_game.visu && g_game.cycle == 20863)
-	// 	print_in_file(g_game.change);
-	//del
 	while (i < len)
 	{
 		g_game.board[index] = str[i];
 		i++;
-		index = (index + 1) % MEM_SIZE;//or base???
+		index = (index + 1) % MEM_SIZE;
 	}
 	if (!g_game.visu)
-	{
 		free(str);
-		str = NULL;
-	}
 }
 
 unsigned char	*to_hex_str(unsigned int num)
 {
 	unsigned char		*str;
 
-	str = (unsigned char *)malloc(sizeof(unsigned char) * 4);//if !str malloc failed
+	if (!(str = (unsigned char *)malloc(sizeof(unsigned char) * 4)))
+	{
+		perror("malloc() in to_hex_str() failed ");
+		error(-1);
+	}
 	ft_memset(str, 0, 4);
 	if (!str)
 		return (NULL);

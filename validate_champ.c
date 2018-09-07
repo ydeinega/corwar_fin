@@ -14,25 +14,22 @@
 
 void			validate_champ(int argc, char **argv, int *i)
 {
-	int 			num;
+	int				num;
 	t_lst_champs	*new;
 
 	num = 0;
 	new = NULL;
 	if (ft_strequ(argv[*i], "-n"))
 		num = validate_champ_num(argc, argv, i);
-	if (ft_strstr(argv[*i], ".cor"))//здесь не обязательно кор расширение
+	if (ft_strstr(argv[*i], ".cor"))
 	{
 		new = num > 0 ? new_champ(argv[*i], num, true) :
 		new_champ(argv[*i], num, false);
 		add_champ(&(g_game.champ), new);
 		g_game.players += 1;
-		//возможно, здесь нужно валидировать имя программы
-		//в хедер файле задефайнены макс размеры програм_нейм, коммента и мэджик намбер ПОТЕСТИТЬ
 	}
 	else
 		error(4);
-
 }
 
 int				validate_champ_num(int argc, char **argv, int *i)
@@ -54,17 +51,17 @@ int				validate_champ_num(int argc, char **argv, int *i)
 		*i += 2;
 		if (validate_num(argv[*i - 1]))
 			num = ft_atoi(argv[*i - 1]);
-		else	
+		else
 			error(2);
 	}
-	!num || num > MAX_PLAYERS ? error(3) : 0;//использую дефайн из op.h
+	!num || num > MAX_PLAYERS ? error(3) : 0;
 	g_game.champ ? check_double_positions(num) : 0;
 	return (num);
 }
 
 void			check_positions(void)
 {
-	int 			i;
+	int				i;
 	t_lst_champs	*tmp;
 
 	i = 1;

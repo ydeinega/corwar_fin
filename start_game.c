@@ -12,36 +12,6 @@
 
 #include "corewar.h"
 
-t_player		*create_players(void)
-{
-	t_player		*player;
-	t_lst_champs	*tmp;
-	int				i;
-
-	i = -1;
-	if (!(player = (t_player *)malloc(sizeof(t_player) * g_game.players)))
-	{
-		perror("malloc() in create_players() failed ");
-		error(-1);
-	}
-	while (++i < g_game.players)
-	{
-		tmp = g_game.champ;
-		player[i].num = i + 1;
-		player[i].name = ft_strdup(tmp->name);
-		player[i].comment = ft_strdup(tmp->comment);
-		player[i].comms = tmp->comms;
-		player[i].len = tmp->size;
-		player[i].start = (MEM_SIZE / g_game.players) * i;
-		player[i].last_live = 0;
-		player[i].lives_in_curr = 0;
-		player[i].lives_in_curr_all = 0;
-		g_game.champ = g_game.champ->next;
-		free(tmp);
-	}
-	return (player);
-}
-
 unsigned char	*create_board(t_player *player)
 {
 	unsigned char	*board;
@@ -91,7 +61,8 @@ static void		introduce(void)
 	ft_printf("Introducing contestants...\n");
 	while (++i < g_game.players)
 	{
-		ft_printf("* Player %i, weighing %i bytes, \"%s\" (\"%s\") !\n", p[i].num, p[i].len, p[i].name, p[i].comment);
+		ft_printf("* Player %i, weighing %i bytes, \"%s\" (\"%s\") !\n",
+					p[i].num, p[i].len, p[i].name, p[i].comment);
 	}
 }
 
@@ -103,13 +74,14 @@ static void		winner(void)
 	if (num >= 1 && num <= g_game.players)
 	{
 		if (!g_game.visu)
-			ft_printf("Contestant %i, \"%s\", has won !\n", num, g_game.player[num - 1].name);
+			ft_printf("Contestant %i, \"%s\", has won !\n",
+						num, g_game.player[num - 1].name);
 	}
 }
 
 void			start_game(void)
 {
-	g_game.player = create_players();
+	g_game.player = create_player_arr();
 	g_game.board = create_board(g_game.player);
 	g_game.proc = create_process(g_game.player);
 	if (g_game.visu)
@@ -126,9 +98,4 @@ void			start_game(void)
 	run_game();
 	winner();
 	clean_all();
-	//while (1);//del
-	//dump();
-	//free(player);
-	//free(board);
-	//free(change)
 }

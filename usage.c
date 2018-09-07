@@ -47,7 +47,8 @@
 **			"Nbr_cycles argument is needed after -dump",
 **	2		"argument number is invalid or missing\n"
 **			"Number argument is needed after -n",
-**	3		"number argument (after -v) must be in the range from 1 to (MAX_PLAYERS)",
+**	3		"number argument (after -v) must be in the range
+**			from 1 to (MAX_PLAYERS)",
 **	4		"champion is missing",
 **	5		"champions cannot have same numbers",
 **	6		"too many players. Max number of champions is (MAX_PLAYERS)",
@@ -153,6 +154,5 @@ void	error(int num)
 		ft_printf("\n");
 	}
 	clean_all();
-	//while (1);//del
 	exit(1);
 }

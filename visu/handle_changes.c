@@ -103,7 +103,7 @@ void				handle_changes(void)
 	tmp = NULL;
 	push_chlist(chlist_create(g_game.change));
 	g_game.change = NULL;
-	if (!(curr = g_game.chlist) || !g_game.change)
+	if (!(curr = g_game.chlist))
 		return ;
 	while (curr)
 	{
@@ -113,7 +113,7 @@ void				handle_changes(void)
 			wattron(g_game.win, A_BOLD);
 			draw_changes(g_game.win, &curr->list, false);
 		}
-		else if (curr->counter == 4 && ((tmp = curr) || 1))
+		else if (curr->counter == 10 && ((tmp = curr) || 1))
 			draw_changes(g_game.win, &curr->list, true);
 		curr->counter++;
 		curr = curr->next;

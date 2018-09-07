@@ -52,13 +52,13 @@ void				draw_info(WINDOW *win, int *y)
 	wattroff(win, A_REVERSE | A_BLINK);
 	mvwprintw(win, *y, (*y += 2) * 0 + x, "** RUNNING **");
 	mvwprintw(win, *y, (*y += 3) * 0 + x, "Cycles/second limit : 8000");
-	mvwprintw(win, *y, (*y += 2) * 0 + x, "Cycle : %d", g_game.cycle);
-	mvwprintw(win, *y, (*y += 2) * 0 + x, "Processes : %d", count_procs());
+	mvwprintw(win, *y, (*y += 2) * 0 + x, "Cycle : %d   ", g_game.cycle);
+	mvwprintw(win, *y, (*y += 2) * 0 + x, "Processes : %d   ", count_procs());
 	while (++i < g_game.players)
 		player_info(win, y, x, i);
 	draw_breakdowns(win, y, x);
-	mvwprintw(win, *y, (*y += 2) * 0 + x, "CYCLE_TO_DIE : %d", g_game.ctd);
-	mvwprintw(win, *y, (*y += 2) * 0 + x, "CYCLE_DELTA : %d", CYCLE_DELTA);
-	mvwprintw(win, *y, (*y += 2) * 0 + x, "NBR_LIVE : %d", NBR_LIVE);
-	mvwprintw(win, *y, x, "MAX_CHECKS : %d", MAX_CHECKS);
+	mvwprintw(win, *y, (*y += 2) * 0 + x, "CYCLE_TO_DIE : %d   ", g_game.ctd);
+	mvwprintw(win, *y, (*y += 2) * 0 + x, "CYCLE_DELTA : %d   ", CYCLE_DELTA);
+	mvwprintw(win, *y, (*y += 2) * 0 + x, "NBR_LIVE : %d   ", NBR_LIVE);
+	mvwprintw(win, *y, x, "MAX_CHECKS : %d   ", MAX_CHECKS);
 }

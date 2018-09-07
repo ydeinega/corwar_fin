@@ -41,7 +41,8 @@ draw_info.c \
 visual_init.c \
 ft_itoa_base_mod.c \
 handle_changes.c \
-helpers.c
+helpers.c \
+draw_map.c
 
 VERB = $(addprefix $(VERB_PATH), $(VERB_SRCS))
 
@@ -55,23 +56,25 @@ validation.c \
 parse_champs.c \
 ft_strljoin.c \
 start_game.c \
+create_player_arr.c \
 create_process.c \
 new_process.c \
 conv_hex.c \
 run_game.c \
 run_processes.c \
-instruction_1.c \
-instruction_2.c \
-instruction_3.c \
+instruct_1_4.c \
+instruct_5_8.c \
+instruct_9_12.c \
+instruct_13_16.c \
 instruct_info.c \
+exec_instruct.c \
 get_codage.c \
 get_move.c \
 extract_arg.c \
 extract_ind.c \
 read_from_board.c \
 store_value.c \
-clean_all.c \
-print_for_debug.c \
+clean_all.c 
 
 VISU = $(addprefix $(VISU_PATH), $(VISU_SRCS))
 

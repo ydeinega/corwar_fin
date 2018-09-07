@@ -6,7 +6,7 @@
 /*   By: rmalyavc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/01 16:57:08 by rmalyavc          #+#    #+#             */
-/*   Updated: 2018/07/02 21:25:28 by rmalyavc         ###   ########.fr       */
+/*   Updated: 2018/09/07 19:45:46 by rmalyavc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static WINDOW	*win_create(void)
 	WINDOW		*win;
 
 	win = newwin(70, 64 * 4 + 4, 0, 0);
-	// box(win, 0, 0);
 	wrefresh(win);
 	return (win);
 }

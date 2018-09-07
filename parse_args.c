@@ -80,27 +80,16 @@ void	parse_args(int argc, char **argv)
 			validate_verbal(argc, argv, &i);
 		else if (ft_strequ(argv[i], "-a"))
 			g_game.a = 1;
-		else if (ft_strequ(argv[i], "-n") || ft_strstr(argv[i], ".cor"))//необязательно, чтоб было .cor
+		else if (ft_strequ(argv[i], "-n") || ft_strstr(argv[i], ".cor"))
 		{
-			g_game.players == MAX_PLAYERS ? error(6) : 0;//op.h
+			g_game.players == MAX_PLAYERS ? error(6) : 0;
 			validate_champ(argc, argv, &i);
 		}
 		else
 			error(0);
 		i++;
 	}
-	if (!g_game.players)
-		error(4);
+	!g_game.players ? error(4) : 0;
 	set_blank_positions();
 	check_positions();
-	// ft_printf("Players 1\n");
-	// t_lst_champs *tmp = g_game.champ;
-	// while (tmp)
-	// {
-	// 	ft_printf("file = %s num = %d\n", tmp->file_name, tmp->num);
-	// 	tmp = tmp->next;
-	// }
-	//вопрос нумерации остается открытым
-	//если ни визу, ни дамп не включены что делать? - просто пишем кто победил и все?
-	//проверить одневременную включенность визу и дампа
 }
