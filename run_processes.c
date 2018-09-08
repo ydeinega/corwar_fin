@@ -46,9 +46,9 @@ void	read_next_pc(t_process *proc, int move, int base)
 		&& proc->opcode >= 1 && proc->opcode <= 16)
 	{
 		if (proc->opcode == 9 && !proc->carry)
-			verb_print_pc(proc->prev, proc->pc, move, g_game.board);
+			verb_print_pc(proc->prev, move, g_game.board);
 		if (proc->opcode != 9)
-			verb_print_pc(proc->prev, proc->pc, move, g_game.board);
+			verb_print_pc(proc->prev, move, g_game.board);
 	}
 }
 

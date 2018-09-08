@@ -26,13 +26,9 @@ VERB_PATH = ./verbosity/
 VISU_PATH = ./visu/
 
 VERB_SRCS = \
-verb_del.c \
-verb_deaths.c \
-verb_op.c \
-verb_pc_move.c \
 verb_print.c \
-verb_mode.c \
-verb_comment_print.c
+verb_print_op.c \
+verb_prt_op_arg.c
 
 VISU_SRCS = \
 breakdowns.c \

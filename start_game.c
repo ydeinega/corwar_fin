@@ -92,8 +92,8 @@ void			start_game(void)
 	else
 	{
 		introduce();
-		if (g_game.v && g_game.number_v > 0)
-			initialize_verb();
+		// if (g_game.v && g_game.number_v > 0)
+		// 	initialize_verb();
 	}
 	run_game();
 	winner();
