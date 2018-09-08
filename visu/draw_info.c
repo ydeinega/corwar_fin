@@ -6,7 +6,7 @@
 /*   By: rmalyavc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/28 20:26:04 by rmalyavc          #+#    #+#             */
-/*   Updated: 2018/09/06 20:43:49 by rmalyavc         ###   ########.fr       */
+/*   Updated: 2018/09/08 14:15:34 by ydeineha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static void			player_info(WINDOW *win, int *y, int x, int nb)
 	wprintw(win, "%s", pl.name);
 	wattroff(win, COLOR_PAIR(nb));
 	mvwprintw(win, *y, (*y += 1) * 0 + x + 2,
-		"Last live :                 %d", pl.last_live);
+		"Last live :                 %d   ", pl.last_live);
 	mvwprintw(win, *y, (*y += 2) * 0 + x + 2,
-		"Lives in current period :   %d", pl.lives_in_curr);
+		"Lives in current period :   %d   ", pl.lives_in_curr);
 }
 
 void				draw_info(WINDOW *win, int *y)
@@ -51,7 +51,8 @@ void				draw_info(WINDOW *win, int *y)
 	wattroff(win, COLOR_PAIR(1));
 	wattroff(win, A_REVERSE | A_BLINK);
 	mvwprintw(win, *y, (*y += 2) * 0 + x, "** RUNNING **");
-	mvwprintw(win, *y, (*y += 3) * 0 + x, "Cycles/second limit : 8000");
+	mvwprintw(win, *y, (*y += 3) * 0 + x, "Speed : %d    ",
+			600 - g_game.timeout / 100);
 	mvwprintw(win, *y, (*y += 2) * 0 + x, "Cycle : %d   ", g_game.cycle);
 	mvwprintw(win, *y, (*y += 2) * 0 + x, "Processes : %d   ", count_procs());
 	while (++i < g_game.players)

@@ -6,7 +6,7 @@
 /*   By: rmalyavc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 21:05:26 by rmalyavc          #+#    #+#             */
-/*   Updated: 2018/09/07 19:45:32 by rmalyavc         ###   ########.fr       */
+/*   Updated: 2018/09/08 14:09:55 by ydeineha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ void		unset_colors(WINDOW *win)
 
 void		make_pause(void)
 {
-	int    	x;
-	int    	y;
+	int		x;
+	int		y;
 
 	y = 2;
 	x = 64 * 3 + 7;
-	unset_colors(g_game.win);	
+	unset_colors(g_game.win);
 	draw_info(g_game.win, &y);
 	mvwprintw(g_game.win, (y = 2), x, "** PAUSED ** ");
 	draw_frame(g_game.win);
@@ -79,7 +79,7 @@ void		make_pause(void)
 
 void		handle_keys(void)
 {
-	int 	res;
+	int		res;
 
 	res = getch();
 	if (res == 27)
@@ -98,10 +98,10 @@ void		handle_keys(void)
 	}
 	else if (res == 'e' && g_game.timeout > 99)
 		g_game.timeout -= 100;
-	else if (res == 'r' && g_game.timeout > 499)
-		g_game.timeout -= 500;
-	else if (res == 'w' && g_game.timeout < 14901)
+	else if (res == 'r' && g_game.timeout > 999)
+		g_game.timeout -= 1000;
+	else if (res == 'w' && g_game.timeout < 59900)
 		g_game.timeout += 100;
-	else if (res == 'q' && g_game.timeout < 14501)
-		g_game.timeout += 500;
+	else if (res == 'q' && g_game.timeout < 59000)
+		g_game.timeout += 1000;
 }

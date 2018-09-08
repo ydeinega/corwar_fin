@@ -76,6 +76,17 @@ static void		winner(void)
 		if (!g_game.visu)
 			ft_printf("Contestant %i, \"%s\", has won !\n",
 						num, g_game.player[num - 1].name);
+		else
+		{
+			wattron(g_game.win, COLOR_PAIR(num));
+			mvwprintw(g_game.win, 65, 64 * 3 + 7, "Contestant %i, \"%s\", has won !\n",
+				num, g_game.player[num - 1].name);
+			system("pkill afplay");
+			system("afplay /Users/ydeineha/corwar_fin/visu/audio/win.mp3 &");
+			make_pause();
+			system("pkill afplay");
+			system("reset");
+		}
 	}
 }
 
